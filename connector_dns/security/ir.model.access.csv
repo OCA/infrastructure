@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_dns_zone_user,access_dns_zone_user,connector_dns.model_dns_zone,connector_dns.group_dns_user,1,0,0,0
+access_dns_zone_manager,access_dns_zone_manager,connector_dns.model_dns_zone,connector_dns.group_dns_manager,1,1,1,1
+access_dns_record_user,access_dns_record_user,connector_dns.model_dns_record,connector_dns.group_dns_user,1,0,0,0
+access_dns_record_manager,access_dns_record_manager,connector_dns.model_dns_record,connector_dns.group_dns_manager,1,1,1,1
+access_dns_record_type_user,access_dns_record_type_user,connector_dns.model_dns_record_type,connector_dns.group_dns_user,1,0,0,0
+access_dns_record_type_manager,access_dns_record_type_manager,connector_dns.model_dns_record_type,connector_dns.group_dns_manager,1,1,1,1

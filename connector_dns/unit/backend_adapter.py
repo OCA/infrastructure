@@ -10,7 +10,7 @@ _logger = logging.getLogger(__name__)
 recorder = {}
 
 
-def call_to_key(method, arguments):
+def call_to_key(method, arguments):  # pragma: no cover
     """ Used to 'freeze' the method and arguments of a call to DNS
     so they can be hashable; they will be stored in a dict.
 
@@ -32,7 +32,7 @@ def call_to_key(method, arguments):
     return (method, tuple(new_args))
 
 
-def record(method, arguments, result):
+def record(method, arguments, result):  # pragma: no cover
     """ Utility function which can be used to record test data
     during synchronisations. Call it from DNSAdapter._call
 
@@ -42,7 +42,7 @@ def record(method, arguments, result):
     recorder[call_to_key(method, arguments)] = result
 
 
-def output_recorder(filename):
+def output_recorder(filename):  # pragma: no cover
     import pprint
     with open(filename, 'w') as f:
         pprint.pprint(recorder, f)
@@ -51,7 +51,8 @@ def output_recorder(filename):
 
 class DNSLocation(object):
 
-    def __init__(self, login, password):
+    def __init__(self, uri, login, password):
+        self.uri = uri
         self.login = login
         self.password = password
 
@@ -66,7 +67,10 @@ class DNSAdapter(CRUDAdapter):
         """
         super(DNSAdapter, self).__init__(environment)
         self.DNS = DNSLocation(
-            self.backend_record.login, self.backend_record.password)
+            self.backend_record.uri,
+            self.backend_record.login,
+            self.backend_record.password,
+        )
 
     def search(self, filters=None):
         """ Search records according to some criterias
