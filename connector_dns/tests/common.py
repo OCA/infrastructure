@@ -1,64 +1,149 @@
 # -*- coding: utf-8 -*-
-#
-#
-#    Authors: Guewen Baconnier
-#    Copyright 2015 Camptocamp SA
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-#
+# Copyright 2015 Camptocamp SA
+# Copyright 2016 LasLabs Inc.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+"""
+Helpers usable in the tests
+"""
 
 import importlib
-from contextlib import contextmanager
-
 import mock
 
+from contextlib import contextmanager
 
-@contextmanager
-def mock_job_delay_to_direct(job_path):
-    """ Replace the .delay() of a job by a direct call
+import openerp.tests.common as common
 
-    job_path is the python path as string, such as::
+import openerp.addons.connector.backend as backend
+from openerp.addons.connector.session import ConnectorSession
 
-      'openerp.addons.magentoerpconnect.stock_picking.export_picking_done'
+from ..backend import dns
+from ..unit.binder import DNSModelBinder
 
-    This is a context manager, all the calls made to the job function in
-    job_path inside the context manager will be executed synchronously.
+backend_adapter = 'openerp.addons.connector_dns.unit.backend_adapter'
 
-    .. note:: It uses :meth:`mock.patch` so it has the same pitfall
-              regarding the python path.  If the mock seems to have no
-              effect, read `Where to patch
-              <http://www.voidspace.org.uk/python/mock/patch.html#where-to-patch>`_
-              in the mock documentation.
 
-    """
-    job_module, job_name = job_path.rsplit('.', 1)
-    module = importlib.import_module(job_module)
-    job_func = getattr(module, job_name, None)
-    assert job_func, "The function %s must exist in %s" % (job_name,
-                                                           job_module)
+class EndTestException(Exception):
+    """ It is used to break code execution for logic isolation """
 
-    def clean_args_for_func(*args, **kwargs):
-        # remove the special args reserved to '.delay()'
-        kwargs.pop('priority', None)
-        kwargs.pop('eta', None)
-        kwargs.pop('model_name', None)
-        kwargs.pop('max_retries', None)
-        kwargs.pop('description', None)
-        job_func(*args, **kwargs)
 
-    with mock.patch(job_path) as patched_job:
-        # call the function directly instead of '.delay()'
-        patched_job.delay.side_effect = clean_args_for_func
-        yield patched_job
+class DNSHelper(object):
+    """ Emulate a ConnectorEnvironment """
+
+    def __init__(self, env, model_name, backend):
+        self.cr = env.cr
+        self.model = env[model_name]
+        self.backend = backend.get_backend()
+        self.backend_record = backend
+        self.session = ConnectorSession(
+            env.cr,
+            env.uid,
+            env.context,
+        )
+        self.connector_unit = {}
+
+    def get_connector_unit(self, unit_class):
+        try:
+            return self.connector_unit[unit_class]
+        except KeyError:
+            self.connector_unit[unit_class] = mock.MagicMock()
+            return self.connector_unit[unit_class]
+
+
+class SetUpDNSBase(common.TransactionCase):
+    """ Base class - Test the imports from a DNS Mock. """
+
+    def setUp(self):
+        super(SetUpDNSBase, self).setUp()
+        self.backend_model = self.env['dns.backend']
+        self.dns_id = 123456789
+        self.session = ConnectorSession(
+            self.env.cr, self.env.uid, context=self.env.context,
+        )
+        self.test_backend = backend.Backend(
+            parent=dns,
+            version='none',
+        )
+        self.EndTestException = EndTestException
+        self.backend = self.backend_model.create({
+            'name': 'Test DNS',
+            'version': 'none',
+            'uri': 'URI',
+            'login': 'username',
+            'password': 'passwd',
+            'is_default': True,
+        })
+
+    def get_dns_helper(self, model_name):
+        """ It returns a simulated ConnectorEnvironment for model_name
+
+        Args:
+            model_name (str): Name of model to simulate environment for
+
+        Returns:
+            Simulated ``ConnectorEnvironment`` for testing
+        """
+        return DNSHelper(
+            self.env, model_name, self.backend
+        )
+
+    def get_mock_binder(self):
+        """ It returns a mock specced as a DNSModelBinder """
+        binder = mock.MagicMock(spec=DNSModelBinder)
+        binder._external_field = DNSModelBinder._external_field
+        binder._backend_field = DNSModelBinder._backend_field
+        binder._openerp_field = DNSModelBinder._openerp_field
+        binder._sync_date_field = DNSModelBinder._sync_date_field
+        binder._fail_date_field = DNSModelBinder._fail_date_field
+        binder._external_date_field = DNSModelBinder._external_date_field
+        return binder
+
+    @contextmanager
+    def mock_adapter(self, unit, binder_for=False):
+        """ It returns a mocked backend_adapter on unit for testing
+
+        Args:
+            unit (connector.ConnectorUnit): to mock adapter on
+            binder_for (bool): Also mock ``binder_for`` method on unit
+
+        Yields:
+            mock.Mock()
+        """
+        with mock.patch.object(unit, '_backend_adapter') as API:
+            if binder_for:
+                with mock.patch.object(unit, 'binder_for') as bind:
+                    bind.return_value = self.get_mock_binder()
+                    yield API
+            else:
+                yield API
+
+    @contextmanager
+    def mock_job_delay_to_direct(self, job_path):
+        """ Replace the ``.delay()`` of a job with a direct call
+
+        Args:
+            job_path (str): The python path of the job, such as
+                ``openerp.addons.dns.models.dns_record.export_record``
+
+        Yields:
+            Patched job
+        """
+        job_module, job_name = job_path.rsplit('.', 1)
+        module = importlib.import_module(job_module)
+        job_func = getattr(module, job_name, None)
+        assert job_func, "The function %s must exist in %s" % (job_name,
+                                                               job_module)
+
+        def clean_args_for_func(*args, **kwargs):
+            # remove the special args reserved to .delay()
+            kwargs.pop('priority', None)
+            kwargs.pop('eta', None)
+            kwargs.pop('model_name', None)
+            kwargs.pop('max_retries', None)
+            kwargs.pop('description', None)
+            job_func(*args, **kwargs)
+
+        with mock.patch(job_path) as patched_job:
+            # call the direct export instead of 'delay()'
+            patched_job.delay.side_effect = clean_args_for_func
+            yield patched_job
