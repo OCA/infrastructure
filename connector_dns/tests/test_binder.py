@@ -1,57 +1,74 @@
 # -*- coding: utf-8 -*-
+# Copyright 2016 LasLabs Inc.
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import mock
-import openerp
-from openerp.addons.connector.backend import Backend
-from openerp.addons.connector_dns.unit.binder import DNSModelBinder
-from openerp.addons.connector.connector import ConnectorEnvironment
-from openerp.addons.connector.session import ConnectorSession
-from openerp.tests.common import TransactionCase
+from openerp.models import BaseModel
+
+from openerp.addons.connector_dns.unit import binder
+
+from .common import SetUpDNSBase
 
 
-@openerp.tests.common.at_install(False)
-@openerp.tests.common.post_install(True)
-class TestDNSModelBinder(TransactionCase):
-    """ Test the DNS Model binder implementation"""
+_file = 'openerp.addons.connector_dns.unit.binder'
+
+
+class TestBinder(SetUpDNSBase):
+
     def setUp(self):
-        super(TestDNSModelBinder, self).setUp()
+        super(TestBinder, self).setUp()
+        self.model = 'dns.zone.bind'
+        self.dns_id = 1234567
+        self.Binder = binder.DNSModelBinder
 
-        class TestDNSBinder(DNSModelBinder):
-            """
-            we use already existing fields for the binding
-            """
-            _model_name = 'dns.binding'
-            _external_field = 'ref'
-            _sync_date_field = 'date'
-            _backend_field = 'color'
-            _openerp_field = 'id'
+    def _new_binder(self):
+        return self.Binder(self.get_dns_helper(
+            self.model
+        ))
 
-        self.session = ConnectorSession(self.cr, self.uid)
-        self.backend = Backend('dummy', version='1.0')
-        backend_record = mock.Mock()
-        backend_record.id = 1
-        backend_record.get_backend.return_value = self.backend
-        self.connector_env = ConnectorEnvironment(
-            backend_record, self.session, 'dns.binding')
-        self.test_dns_binder = TestDNSBinder(self.connector_env)
+    def test_bind_super(self):
+        """ It should call super w/ proper args """
+        expect = mock.MagicMock(), mock.MagicMock()
+        with mock.patch.object(binder.Binder, 'bind') as mk:
+            _binder = self._new_binder()
+            _binder.bind(*expect)
+            mk.assert_called_once_with(*expect)
 
-    def test_binder(self):
-        """ Small scenario with the default binder """
-        dns_model = mock.Mock()
-        dns_model.id = 0
-        dns_model.dns_id = 0
-        # bind the main partner to external id = 0
-        self.test_dns_binder.bind(0, dns_model.id)
-        # find the openerp partner bound to external partner 0
-        self.test_dns_binder.to_openerp = mock.Mock()
-        self.test_dns_binder.to_openerp.return_value.id = 0
-        openerp_id = self.test_dns_binder.to_openerp(0)
-        self.assertEqual(openerp_id.id, dns_model.id)
-        openerp_id = self.test_dns_binder.to_openerp(0, unwrap=True)
-        self.assertEqual(openerp_id.id, dns_model.id)
-        self.test_dns_binder.to_backend = mock.Mock()
-        self.test_dns_binder.to_backend.return_value = '0'
-        external_id = self.test_dns_binder.to_backend(dns_model.id)
-        self.assertEqual(external_id, '0')
-        external_id = self.test_dns_binder.to_backend(dns_model.id, wrap=True)
-        self.assertEqual(external_id, '0')
+    def test_bind_fail_write_no_export(self):
+        """ It should set no export context on failure write """
+        expect = mock.MagicMock(), mock.MagicMock(spec=BaseModel)
+        with mock.patch.object(binder.Binder, 'bind') as mk:
+            _binder = self._new_binder()
+            mk.side_effect = AssertionError
+            _binder.bind(*expect)
+            expect[1].with_context.assert_called_once_with(
+                connector_no_export=True,
+            )
+
+    @mock.patch('%s.fields' % _file)
+    def test_bind_handles_assertion_fail(self, fields):
+        """ It should write fail time to bind record """
+        expect = mock.MagicMock(), mock.MagicMock(spec=BaseModel)
+        with mock.patch.object(binder.Binder, 'bind') as mk:
+            _binder = self._new_binder()
+            mk.side_effect = AssertionError
+            _binder.bind(*expect)
+            expect[1].with_context().write.assert_called_once_with({
+                _binder._fail_date_field: fields.Datetime.now(),
+            })
+
+    def test_bind_fail_write_int(self):
+        """ It should browse on model if not instance of BaseModel """
+        expect = mock.MagicMock(), mock.MagicMock()
+        with mock.patch.object(binder.Binder, 'bind') as mk:
+            _binder = self._new_binder()
+            mk.side_effect = AssertionError
+            with mock.patch.object(_binder.connector_env, 'model') as model:
+                _binder.bind(*expect)
+                model.browse.assert_called_once_with(expect[1])
+
+    def test_external_date_method(self):
+        """ It should return input arg """
+        expect = mock.MagicMock()
+        res = self._new_binder()._external_date_method(expect)
+        self.assertEqual(expect, res)

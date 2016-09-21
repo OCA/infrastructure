@@ -4,7 +4,6 @@
 
 from . import backend
 from . import connector
-from .models import dns
-from . import tests
+from . import models
 from . import unit
 
