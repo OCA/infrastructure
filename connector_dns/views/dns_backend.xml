@@ -3,9 +3,8 @@
     <data>
         
         <record id="dns_backend_action" model="ir.actions.act_window">
-            <field name="name">DNS Backend Action</field>
+            <field name="name">DNS Backends</field>
             <field name="res_model">dns.backend</field>
-            <field name="type_id">ir.actions.act_window</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -29,12 +28,10 @@
                         <button name="button_connect"
                                 string="Connect"
                                 type="object"
-                                states="draft,exception"
                                 />
                         <button name="button_set_draft"
                                 string="Set to draft"
                                 type="object"
-                                states="done"
                                 />
                     </header>
                     <sheet>
