@@ -36,6 +36,7 @@ class DNSRecord(models.Model):
         string="Zone",
         comodel_name='dns.zone',
         ondelete='cascade',
+        required=True,
         help="Hosted zone that this record is applied to.",
     )
     type_id = fields.Many2one(
