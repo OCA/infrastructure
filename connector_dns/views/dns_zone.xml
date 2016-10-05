@@ -3,7 +3,7 @@
     <data>
         
         <record id="dns_zone_action" model="ir.actions.act_window">
-            <field name="name">DNS Zone</field>
+            <field name="name">DNS Zones</field>
             <field name="res_model">dns.zone</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -28,7 +28,6 @@
                         <button name="button_get_sub_domains"
                                 string="Get Sub domains"
                                 type="object"
-                                states="done"
                                 />
                     </header>
                     <sheet>
