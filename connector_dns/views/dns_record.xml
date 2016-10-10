@@ -3,7 +3,7 @@
     <data>
         
         <record id="dns_record_action" model="ir.actions.act_window">
-            <field name="name">DNS Record Action</field>
+            <field name="name">DNS Records</field>
             <field name="res_model">dns.record</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
