@@ -18,6 +18,7 @@
         'views/dns_record.xml',
         'views/dns_zone.xml',
         'views/dns_menu.xml',
+        'views/connector_config_settings.xml',
         'data/dns_record_type.xml',
         'security/dns.xml',
         'security/ir.model.access.csv',

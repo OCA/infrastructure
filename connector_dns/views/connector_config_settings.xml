@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <record id="view_connector_config_settings" model="ir.ui.view">
+            <field name="name">Connector Settings</field>
+            <field name="model">connector.config.settings</field>
+            <field name="inherit_id" ref="connector.view_connector_config_settings"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group[1]" position="after">
+                    <separator string="DNS"/>
+                    <group name="dns" />
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</openerp>
