@@ -5,7 +5,7 @@
 
 {
     'name': 'DNS connector',
-    'version': '8.0.1.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Connector',
     'depends': ['connector'],
     'author': 'Elico Corp, '

@@ -4,14 +4,14 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from openerp import models, fields, api
-from openerp.addons.connector.connector import Environment
+from openerp.addons.connector.connector import ConnectorEnvironment
 from openerp.addons.connector.checkpoint import checkpoint
 
 
 def get_environment(session, model_name, backend_id):
     """ Create an environment to work with.  """
     backend_record = session.env['dns.backend'].browse(backend_id)
-    env = Environment(backend_record, session, model_name)
+    env = ConnectorEnvironment(backend_record, session, model_name)
     return env
 
 

@@ -45,7 +45,7 @@ class TestConnector(SetUpDNSBase):
 
     def test_get_environment_creates_environment(self):
         """ It should create environment for binding """
-        with mock.patch('%s.Environment' % mk_file) as env:
+        with mock.patch('%s.ConnectorEnvironment' % mk_file) as env:
             env.side_effect = EndTestException
             with self.assertRaises(EndTestException):
                 connector.get_environment(
@@ -61,7 +61,7 @@ class TestConnector(SetUpDNSBase):
 
     def test_get_environment_return(self):
         """ It should return new environment """
-        with mock.patch('%s.Environment' % mk_file) as env:
+        with mock.patch('%s.ConnectorEnvironment' % mk_file) as env:
             res = connector.get_environment(
                 self.session, self.model, self.binding_id.dns_backend_id.id,
             )
