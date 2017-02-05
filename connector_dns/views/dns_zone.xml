@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        
+        <record id="dns_zone_action" model="ir.actions.act_window">
+            <field name="name">DNS Zones</field>
+            <field name="res_model">dns.zone</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="dns_zone_tree" model="ir.ui.view">
+            <field name="name">DNS Zone Tree</field>
+            <field name="model">dns.zone</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="dns_zone_form" model="ir.ui.view">
+            <field name="name">DNS Zone Form</field>
+            <field name="model">dns.zone</field>
+            <field name="arch" type="xml">
+                <form string='Domain'>
+                    <header>
+                        <button name="button_get_sub_domains"
+                                string="Get Sub domains"
+                                type="object"
+                                />
+                    </header>
+                    <sheet>
+                        <div class="oe_title" style="width: 390px;">
+                            <label class="oe_edit_only" for="name" string="Name" />
+                            <h1>
+                                <field name="name" class="oe_inline" />
+                            </h1>
+                        </div>
+                        <label for="record_ids" string='Subdomains'/>
+                        <field name="record_ids">
+                            <tree editable="bottom">
+                                <field name="name" />
+                                <field name="zone_id" invisible="1" />
+                                <field name="type_id" />
+                                <field name="value" />
+                                <field name="ttl" />
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+    </data>
+</openerp>
