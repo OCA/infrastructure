@@ -1,0 +1,88 @@
+<odoo>
+    <record id="view_dns_backend" model="ir.ui.view">
+        <field name="name">dns.backend.form</field>
+        <field name="model">dns.backend</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group colspan="4" col="4">
+                            <field name="version"/>
+                            <field name="login"/>
+                            <field name="password" password="True"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dns_record" model="ir.ui.view">
+        <field name="name">dns.record.form</field>
+        <field name="model">dns.record</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_dns_record_tree" model="ir.ui.view">
+        <field name="name">dns.record.tree</field>
+        <field name="model">dns.record</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_dns_backend_tree" model="ir.ui.view">
+        <field name="name">dns.backend.tree</field>
+        <field name="model">dns.backend</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="version"/>
+                <field name="login"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_dns_backend" model="ir.actions.act_window">
+        <field name="name">DNS Backends</field>
+        <field name="res_model">dns.backend</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dns_backend_tree"/>
+    </record>
+
+    <record id="action_dns_record" model="ir.actions.act_window">
+        <field name="name">DNS Records</field>
+        <field name="res_model">dns.record</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_dns_record_tree"/>
+    </record>
+
+    <menuitem id="menu_dns_backend"
+              name="DNS Backend"
+              parent="connector.menu_connector_root"
+              sequence="20"
+    />
+
+    <menuitem id="menu_dns_backend_act"
+              name="Backend"
+              action="dns.action_dns_backend"
+              parent="menu_dns_backend"
+    />
+
+    <menuitem id="menu_dns_record"
+              name="Records"
+              action="dns.action_dns_record"
+              parent="menu_dns_backend"
+    />
+</odoo>
