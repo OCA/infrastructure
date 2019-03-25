@@ -1,13 +1,10 @@
-# -*- coding: utf-8 -*-
 from odoo.addons.component.core import AbstractComponent
 
 
 class DNSAbstractImporter(AbstractComponent):
     _name = 'dns.abstract.importer'
-    _inherit = 'base.importer'
+    _inherit = ['base.importer', 'base.dns.connector']
     _usage = 'dns.importer'
-    _collection = 'dns.backend'
-    _apply_on = ['dns.binding']
 
     def __init__(self, work_context):
         super(DNSAbstractImporter, self).__init__(work_context)
