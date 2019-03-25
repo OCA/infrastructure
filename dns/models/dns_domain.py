@@ -13,6 +13,13 @@ class DNSDomain(models.Model):
         required=True,
         help='Domain name without "www", such as "dnspod.cn"'
     )
+    state = fields.Selection([
+        ('draft', 'Draft'),
+        ('done', 'Done'),
+        ('exception', 'Exception')],
+        string='State',
+        default='draft',
+        help='Done when succeed otherwise Exception')
     record_ids = fields.One2many(
         comodel_name='dns.record',
         inverse_name='domain_id',

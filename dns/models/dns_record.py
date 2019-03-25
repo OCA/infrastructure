@@ -21,7 +21,8 @@ class DNSRecord(models.Model):
         required=True)
     domain_id = fields.Many2one(
         comodel_name='dns.domain',
-        string="Domain",
+        domain="[('state', '=', 'done')]",
+        string='Domain',
         ondelete='cascade')
     type = fields.Selection(
         selection='_type_select_version',
