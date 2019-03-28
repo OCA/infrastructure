@@ -34,7 +34,7 @@ class DNSAbstractImporter(AbstractComponent):
     def _map_data(self):
         return self.mapper.map_record(self.dns_record)
 
-    def _get_binding(self):
+    def _get_binding(self, signal):
         return self.binder.to_internal(self.external_id)
 
     def _create_data(self, map_record, **kwargs):
@@ -70,7 +70,7 @@ class DNSAbstractImporter(AbstractComponent):
         except Exception:
             return 'No response'
 
-        binding = self._get_binding()
+        binding = self._get_binding(signal)
         self._before_import()
         map_record = self._map_data()
         if binding:
