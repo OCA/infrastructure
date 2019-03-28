@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo.addons.component.core import Component
 
 

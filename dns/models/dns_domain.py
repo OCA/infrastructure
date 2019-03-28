@@ -9,7 +9,7 @@ class DNSDomain(models.Model):
     _description = 'DNS Domain'
 
     name = fields.Char(
-        string='Name',
+        string='Domain',
         required=True,
         help='Domain name without "www", such as "dnspod.cn"'
     )

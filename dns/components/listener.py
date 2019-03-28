@@ -12,7 +12,7 @@ class DNSRecordListener(Component):
     @skip_if(lambda self, record, **kwargs: self.no_connector_export(record))
     def on_record_write(self, record, fields=None):
         for binding in record.dns_binding_ids:
-            binding.with_delay().sync_dns_records('write')
+            binding.with_delay().sync_dns_records(binding, 'write')
 
     @skip_if(lambda self, record, **kwargs: self.no_connector_export(record))
     def on_record_create(self, record, fields=None):
@@ -22,4 +22,4 @@ class DNSRecordListener(Component):
             'external_id': str(uuid.uuid4())
         })
         for binding in record.dns_binding_ids:
-            binding.with_delay().sync_dns_records('create')
+            binding.with_delay().sync_dns_records(binding, 'create')

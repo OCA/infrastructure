@@ -7,14 +7,6 @@ class DNSRecord(models.Model):
     _name = 'dns.record'
     _description = 'DNS records'
 
-    @api.model
-    def _line_select_version(self):
-        return []
-
-    @api.model
-    def _type_select_version(self):
-        return []
-
     name = fields.Char(
         'Subdomain',
         help='Host record, such as "www"',
@@ -24,14 +16,6 @@ class DNSRecord(models.Model):
         domain="[('state', '=', 'done')]",
         string='Domain',
         ondelete='cascade')
-    type = fields.Selection(
-        selection='_type_select_version',
-        string='Record Type'
-    )
-    line = fields.Selection(
-        selection='_line_select_version',
-        string='Record Line'
-    )
     value = fields.Text(
         string='Value',
         help="such as IP:200.200.200.200",
@@ -47,9 +31,4 @@ class DNSRecord(models.Model):
         default=600,
         help="scope: 1-604800",
         required=True
-    )
-    backend_id = fields.Many2one(
-        comodel_name='dns.backend',
-        related='domain_id.backend_id',
-        store=True
     )

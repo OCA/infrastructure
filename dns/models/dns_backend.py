@@ -12,15 +12,28 @@ class DNSBackend(models.Model):
     def _selection_version(self):
         return [('1.0', '1.0')]
 
+    name = fields.Char('Name', required=True)
     login = fields.Char('Username or Email')
     password = fields.Char('Password')
-    uri = fields.Char('URI', help="URL to DNS Provider API")
+    api_path = fields.Char(
+        'API URL',
+        required=True,
+        help="URL to DNS Provider API")
     version = fields.Selection(_selection_version, string='Backend Version')
-    company_id = fields.Many2one('res.company', string='Company')
+    company_id = fields.Many2one(
+        'res.company',
+        default=lambda self: self.env.user.company_id,
+        string='Company')
     is_default = fields.Boolean('Is Default Backend')
     import_date = fields.Datetime('Import Date')
     export_date = fields.Datetime('Export Date')
 
-    def sync(self, model, external_id):
+    @api.multi
+    def sync_domains(self, model, external_id):
+        self.ensure_one()
+        self.env[model].with_delay().sync_dns_domains(self, external_id)
+
+    @api.multi
+    def sync_records(self, model, external_id):
         self.ensure_one()
         self.env[model].with_delay().sync_dns_records(self, external_id)

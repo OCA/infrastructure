@@ -6,8 +6,23 @@
             <form>
                 <sheet>
                     <group>
-                        <group colspan="4" col="4">
+                        <div class="oe_title">
+                            <label class="oe_edit_only" for="name" string="Domain"/>
+                            <h1>
+                                <field name="name" class="oe_inline"/>
+                            </h1>
+                        </div>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="api_path"/>
+                        </group>
+                        <group>
                             <field name="version"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
                             <field name="login"/>
                             <field name="password" password="True"/>
                         </group>
@@ -46,8 +61,8 @@
         <field name="model">dns.backend</field>
         <field name="arch" type="xml">
             <tree>
+                <field name="name"/>
                 <field name="version"/>
-                <field name="login"/>
             </tree>
         </field>
     </record>

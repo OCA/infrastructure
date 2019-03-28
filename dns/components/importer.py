@@ -1,4 +1,8 @@
+import logging
+
 from odoo.addons.component.core import AbstractComponent
+
+_logger = logging.getLogger(__name__)
 
 
 class DNSAbstractImporter(AbstractComponent):
@@ -8,7 +12,8 @@ class DNSAbstractImporter(AbstractComponent):
 
     def __init__(self, work_context):
         super(DNSAbstractImporter, self).__init__(work_context)
-        self.binding_id = None
+        self.domain_id = None
+        self.external_id = None
         self.dns_record = None
 
     def _before_import(self):
@@ -17,9 +22,8 @@ class DNSAbstractImporter(AbstractComponent):
     def _after_import(self):
         return
 
-    def _send_request(self, signal):
+    def _get_records(self, signal):
         """
-        Send request to the DNS provider
         :param signal: Signal of the action
         """
         raise NotImplementedError
@@ -31,7 +35,18 @@ class DNSAbstractImporter(AbstractComponent):
         return self.mapper.map_record(self.dns_record)
 
     def _get_binding(self):
-        return self.model.browse(self.binding_id)
+        return self.binder.to_internal(self.external_id)
+
+    def _create_data(self, map_record, **kwargs):
+        return map_record.values(for_create=True, **kwargs)
+
+    def _create(self, data):
+        """ Create the Odoo record """
+        # special check on data before import
+        self._validate_data(data)
+        model = self.model.with_context(connector_no_export=True)
+        binding = model.create(data)
+        return binding
 
     def _update_data(self, map_record, **kwargs):
         return map_record.values(**kwargs)
@@ -40,18 +55,29 @@ class DNSAbstractImporter(AbstractComponent):
         self._validate_data(data)
         binding.with_context(no_connector_export=True).write(data)
 
-    def run(self, binding_id, signal):
-        self.binding_id = binding_id
+    def run(self, domain_id, signal, record_id):
+        self.domain_id = domain_id
+        if record_id:
+            self._run(record_id, signal)
+        else:
+            for _id in self.backend_adapter.search(domain_id):
+                self._run(_id, signal)
+
+    def _run(self, external_id, signal):
+        self.external_id = external_id
         try:
-            self.dns_record = self._send_request(signal)
+            self.dns_record = self._get_records(signal)
         except Exception:
             return 'No response'
 
         binding = self._get_binding()
         self._before_import()
         map_record = self._map_data()
-        record = self._update_data(map_record)
-        self._update(binding, record)
-        # FIXME: bind the external id not binding_id
-        self.binder.bind(self.binding_id, binding)
+        if binding:
+            record = self._update_data(map_record)
+            self._update(binding, record)
+        else:
+            record = self._create_data(map_record)
+            binding = self._create(record)
+        self.binder.bind(self.external_id, binding)
         self._after_import()
