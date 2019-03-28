@@ -22,11 +22,8 @@ class DNSAbstractImporter(AbstractComponent):
     def _after_import(self):
         return
 
-    def _get_records(self, signal):
-        """
-        :param signal: Signal of the action
-        """
-        raise NotImplementedError
+    def _get_records(self):
+        return self.backend_adapter.list(self.external_id)
 
     def _validate_data(self, data):
         return
@@ -34,7 +31,7 @@ class DNSAbstractImporter(AbstractComponent):
     def _map_data(self):
         return self.mapper.map_record(self.dns_record)
 
-    def _get_binding(self, signal):
+    def _get_binding(self):
         return self.binder.to_internal(self.external_id)
 
     def _create_data(self, map_record, **kwargs):
@@ -55,22 +52,16 @@ class DNSAbstractImporter(AbstractComponent):
         self._validate_data(data)
         binding.with_context(no_connector_export=True).write(data)
 
-    def run(self, domain_id, signal, record_id):
+    def run(self, domain_id):
         self.domain_id = domain_id
-        if record_id:
-            self._run(record_id, signal)
-        else:
-            for _id in self.backend_adapter.search(domain_id):
-                self._run(_id, signal)
+        for _id in self.backend_adapter.list_all(domain_id):
+            self._run(_id)
 
-    def _run(self, external_id, signal):
+    def _run(self, external_id):
         self.external_id = external_id
-        try:
-            self.dns_record = self._get_records(signal)
-        except Exception:
-            return 'No response'
+        self.dns_record = self._get_records()
 
-        binding = self._get_binding(signal)
+        binding = self._get_binding()
         self._before_import()
         map_record = self._map_data()
         if binding:
