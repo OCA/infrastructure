@@ -15,7 +15,7 @@ class DNSBingingAbstract(models.AbstractModel):
         string='DNS Backend',
         required=True,
         ondelete='restrict')
-    external_id = fields.Char('ID on DNS Provider')
+    external_id = fields.Char('ID on DNS Provider', readonly=True)
     sync_date = fields.Datetime('Sync Date')
 
     _sql_constraints = [

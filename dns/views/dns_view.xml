@@ -50,8 +50,11 @@
         <field name="name">dns.record.tree</field>
         <field name="model">dns.record</field>
         <field name="arch" type="xml">
-            <tree>
-                <field name="name"/>
+            <tree create="false" edit="false">
+                <field name="name" string="Name"/>
+                <field name="value"/>
+                <field name="mx_priority"/>
+                <field name="ttl"/>
             </tree>
         </field>
     </record>
@@ -95,9 +98,4 @@
               parent="menu_dns_backend"
     />
 
-    <menuitem id="menu_dns_record"
-              name="Records"
-              action="dns.action_dns_record"
-              parent="menu_dns_backend"
-    />
 </odoo>
