@@ -9,11 +9,11 @@ class DNSAbstractDeleter(AbstractComponent):
     _usage = 'dns.deleter'
 
     def run(self, binding):
-        self._before_delete()
+        self._before_delete(binding)
         self.backend_adapter.delete(binding)
         self._after_delete()
 
-    def _before_delete(self):
+    def _before_delete(self, binding):
         return
 
     def _after_delete(self):
