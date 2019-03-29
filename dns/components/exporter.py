@@ -16,9 +16,9 @@ class DNSAbstractExporter(AbstractComponent):
         self.external_id = self.binder.to_external(self.binding)
         self._before_export()
         if self.external_id:
-            self.backend_adapter.write(self.external_id)
+            self.backend_adapter.write(self.binding)
         else:
-            response = self.backend_adapter.create()
+            response = self.backend_adapter.create(self.binding)
             self.external_id = self._get_external_id(response)
         self.binder.bind(self.external_id, self.binding)
         self._after_export()

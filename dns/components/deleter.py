@@ -6,9 +6,9 @@ class DNSAbstractDeleter(AbstractComponent):
     _inherit = 'base.deleter'
     _usage = 'dns.deleter'
 
-    def run(self, external_id):
+    def run(self, binding):
         self._before_delete()
-        self.backend_adapter.delete(external_id)
+        self.backend_adapter.delete(binding)
         self._after_delete()
 
     def _before_delete(self):

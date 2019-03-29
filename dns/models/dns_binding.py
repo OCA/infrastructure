@@ -25,10 +25,17 @@ class DNSBingingAbstract(models.AbstractModel):
 
     @job(default_channel='root')
     @api.model
-    def import_dns_domains(self, backend_id, domain_id):
+    def import_dns_domains(self, backend_id, binding):
         with backend_id.work_on(self._name) as work:
             importer = work.component(usage='dns.importer')
-            return importer.run(domain_id)
+            return importer.run(binding)
+
+    @job(default_channel='root')
+    @api.model
+    def import_dns_records(self, backend_id, binding):
+        with backend_id.work_on(self._name) as work:
+            importer = work.component(usage='dns.importer')
+            return importer.run(binding)
 
     @job(default_channel='root')
     @api.model
@@ -39,7 +46,7 @@ class DNSBingingAbstract(models.AbstractModel):
 
     @job(default_channel='root')
     @api.model
-    def delete_dns_records(self, backend_id, external_id):
+    def delete_dns_records(self, backend_id, binding):
         with backend_id.work_on(self._name) as work:
             exporter = work.component(usage='dns.deleter')
-            return exporter.run(external_id)
+            return exporter.run(binding)
