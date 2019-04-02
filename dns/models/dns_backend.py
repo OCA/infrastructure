@@ -13,11 +13,6 @@ class DNSBackend(models.Model):
         return [('1.0', '1.0')]
 
     name = fields.Char('Name', required=True)
-    api_path = fields.Char(
-        'API URL',
-        required=True,
-        help="URL to DNS Provider API")
-    version = fields.Selection(_selection_version, string='Backend Version')
     company_id = fields.Many2one(
         'res.company',
         default=lambda self: self.env.user.company_id,
