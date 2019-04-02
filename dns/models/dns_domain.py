@@ -25,3 +25,8 @@ class DNSDomain(models.Model):
         inverse_name='domain_id',
         string='Subdomains'
     )
+
+    _sql_constraints = [
+        ('dns_domain_uniq', 'unique(backend_id, external_id)',
+         "A binding already exists with the same record."),
+    ]

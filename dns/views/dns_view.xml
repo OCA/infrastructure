@@ -12,7 +12,7 @@ License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
                 <sheet>
                     <group>
                         <div class="oe_title">
-                            <label class="oe_edit_only" for="name" string="Domain"/>
+                            <label class="oe_edit_only" for="name"/>
                             <h1>
                                 <field name="name" class="oe_inline"/>
                             </h1>
@@ -24,12 +24,6 @@ License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
                         </group>
                         <group>
                             <field name="version"/>
-                        </group>
-                    </group>
-                    <group>
-                        <group>
-                            <field name="login"/>
-                            <field name="password" password="True"/>
                         </group>
                     </group>
                 </sheet>

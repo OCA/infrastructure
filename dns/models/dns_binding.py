@@ -18,11 +18,6 @@ class DNSBingingAbstract(models.AbstractModel):
     external_id = fields.Char('ID on DNS Provider', readonly=True)
     sync_date = fields.Datetime('Sync Date')
 
-    _sql_constraints = [
-        ('dns_uniq', 'unique(backend_id, external_id)',
-         "A binding already exists with the same record."),
-    ]
-
     @job(default_channel='root')
     @api.model
     def import_dns_domains(self, backend_id, binding):

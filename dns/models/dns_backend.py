@@ -13,8 +13,6 @@ class DNSBackend(models.Model):
         return [('1.0', '1.0')]
 
     name = fields.Char('Name', required=True)
-    login = fields.Char('Username or Email')
-    password = fields.Char('Password')
     api_path = fields.Char(
         'API URL',
         required=True,
