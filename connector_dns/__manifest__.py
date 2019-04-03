@@ -1,4 +1,4 @@
-# © 2019 Elico Corp (https://www.elico-corp.com).
+# © 2015-2019 Elico Corp (https://www.elico-corp.com).
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 {
     'name': 'DNS Base',
