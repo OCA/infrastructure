@@ -1,0 +1,498 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* connector_dns
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: connector_dns
+#: code:addons/connector_dns/models/dns_record.py:82
+#, python-format
+msgid "\"%s\" does not match validation rule for a \"%s\" record"
+msgstr ""
+
+#. module: connector_dns
+#: sql_constraint:dns.binding:0
+#: sql_constraint:dns.record.bind:0
+#: sql_constraint:dns.record.type.bind:0
+#: sql_constraint:dns.zone.bind:0
+msgid "A binding already exists with the same DNS External ID."
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,active:0
+msgid "Active"
+msgstr ""
+
+#. module: connector_dns
+#: code:addons/connector_dns/tests/test_dns_importer.py:415
+#: code:addons/connector_dns/unit/import_synchronizer.py:206
+#, python-format
+msgid "Already Up To Date."
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.ui.menu,name:connector_dns.menu_dns_backend
+msgid "Backends"
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.backend,is_default:0
+msgid "Check this if this is the default connector for the company. All newly created records for this company will be synced to the default system. Only records that originated from non-default systems will be synced with them."
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record.type,code:0
+#: field:dns.record.type.bind,code:0
+msgid "Code"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,company_id:0
+msgid "Company"
+msgstr ""
+
+#. module: connector_dns
+#: view:dns.backend:connector_dns.dns_backend_form
+msgid "Connect"
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.model,name:connector_dns.model_dns_backend
+msgid "Connector Backend"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,create_uid:0
+#: field:dns.record,create_uid:0
+#: field:dns.record.bind,create_uid:0
+#: field:dns.record.type,create_uid:0
+#: field:dns.record.type.bind,create_uid:0
+#: field:dns.zone,create_uid:0
+#: field:dns.zone.bind,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,create_date:0
+#: field:dns.record,create_date:0
+#: field:dns.record.bind,create_date:0
+#: field:dns.record.type,create_date:0
+#: field:dns.record.type.bind,create_date:0
+#: field:dns.zone,create_date:0
+#: field:dns.zone.bind,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: connector_dns
+#: view:connector.config.settings:connector_dns.view_connector_config_settings
+#: model:ir.ui.menu,name:connector_dns.menu_dns
+msgid "DNS"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.binding,dns_backend_id:0
+#: field:dns.record.bind,dns_backend_id:0
+#: field:dns.record.type.bind,dns_backend_id:0
+#: field:dns.zone.bind,dns_backend_id:0
+msgid "DNS Backend"
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.actions.act_window,name:connector_dns.dns_backend_action
+msgid "DNS Backends"
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.model,name:connector_dns.model_dns_binding
+msgid "DNS Binding (abstract)"
+msgstr ""
+
+#. module: connector_dns
+#: model:res.groups,name:connector_dns.group_dns_manager
+msgid "DNS Manager"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record.bind,odoo_id:0
+#: field:dns.record.type.bind,odoo_id:0
+#: model:ir.model,name:connector_dns.model_dns_record
+msgid "DNS Record"
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.model,name:connector_dns.model_dns_record_bind
+msgid "DNS Record Binding"
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.model,name:connector_dns.model_dns_record_type
+msgid "DNS Record Type"
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.model,name:connector_dns.model_dns_record_type_bind
+msgid "DNS Record Type Binding"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.zone,record_ids:0
+#: field:dns.zone.bind,record_ids:0
+#: model:ir.actions.act_window,name:connector_dns.dns_record_action
+msgid "DNS Records"
+msgstr ""
+
+#. module: connector_dns
+#: model:res.groups,name:connector_dns.group_dns_user
+msgid "DNS User"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.zone.bind,odoo_id:0
+msgid "DNS Zone"
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.model,name:connector_dns.model_dns_zone_bind
+msgid "DNS Zone Binding"
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.actions.act_window,name:connector_dns.dns_zone_action
+msgid "DNS Zones"
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.backend,version:0
+msgid "DNS service provider"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,display_name:0
+#: field:dns.binding,display_name:0
+#: field:dns.record,display_name:0
+#: field:dns.record.bind,display_name:0
+#: field:dns.record.type,display_name:0
+#: field:dns.record.type.bind,display_name:0
+#: field:dns.zone,display_name:0
+#: field:dns.zone.bind,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: connector_dns
+#: view:dns.zone:connector_dns.dns_zone_form
+msgid "Domain"
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.record,value:0
+#: help:dns.record.bind,value:0
+msgid "Enter multiple values on separate lines. Enclose text in quotation marks."
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record,dns_bind_ids:0
+#: field:dns.record.bind,dns_bind_ids:0
+#: field:dns.record.type,dns_bind_ids:0
+#: field:dns.record.type.bind,dns_bind_ids:0
+#: field:dns.zone,dns_bind_ids:0
+#: field:dns.zone.bind,dns_bind_ids:0
+msgid "External Bindings"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.binding,dns_id_external:0
+#: field:dns.record.bind,dns_id_external:0
+#: field:dns.record.type.bind,dns_id_external:0
+#: field:dns.zone.bind,dns_id_external:0
+msgid "External ID"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.binding,fail_date:0
+#: field:dns.record.bind,fail_date:0
+#: field:dns.record.type.bind,fail_date:0
+#: field:dns.zone.bind,fail_date:0
+msgid "Fail date"
+msgstr ""
+
+#. module: connector_dns
+#: view:dns.zone:connector_dns.dns_zone_form
+msgid "Get Sub domains"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record.type,help:0
+#: field:dns.record.type.bind,help:0
+msgid "Help"
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.record,name:0
+#: help:dns.record.bind,name:0
+msgid "Host record, such as \"www\"."
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.zone,name:0
+#: help:dns.zone.bind,name:0
+msgid "Hosted zone name, such as \"amazon.com\"."
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.record,zone_id:0
+#: help:dns.record.bind,zone_id:0
+msgid "Hosted zone that this record is applied to."
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,id:0
+#: field:dns.binding,id:0
+#: field:dns.record,id:0
+#: field:dns.record.bind,id:0
+#: field:dns.record.type,id:0
+#: field:dns.record.type.bind,id:0
+#: field:dns.zone,id:0
+#: field:dns.zone.bind,id:0
+msgid "ID"
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.binding,dns_id_external:0
+#: help:dns.record.bind,dns_id_external:0
+#: help:dns.record.type.bind,dns_id_external:0
+#: help:dns.zone.bind,dns_id_external:0
+msgid "ID of the record in external system."
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,import_records_from_date:0
+msgid "Import records from date"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,import_zones_from_date:0
+msgid "Import zones from date"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,is_default:0
+msgid "Is default"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,__last_update:0
+#: field:dns.binding,__last_update:0
+#: field:dns.record,__last_update:0
+#: field:dns.record.bind,__last_update:0
+#: field:dns.record.type,__last_update:0
+#: field:dns.record.type.bind,__last_update:0
+#: field:dns.zone,__last_update:0
+#: field:dns.zone.bind,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,write_uid:0
+#: field:dns.record,write_uid:0
+#: field:dns.record.bind,write_uid:0
+#: field:dns.record.type,write_uid:0
+#: field:dns.record.type.bind,write_uid:0
+#: field:dns.zone,write_uid:0
+#: field:dns.zone.bind,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,write_date:0
+#: field:dns.record,write_date:0
+#: field:dns.record.bind,write_date:0
+#: field:dns.record.type,write_date:0
+#: field:dns.record.type.bind,write_date:0
+#: field:dns.zone,write_date:0
+#: field:dns.zone.bind,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.binding,sync_date:0
+#: field:dns.record.bind,sync_date:0
+#: field:dns.record.type.bind,sync_date:0
+#: field:dns.zone.bind,sync_date:0
+msgid "Last synchronization date"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,login:0
+msgid "Login"
+msgstr ""
+
+#. module: connector_dns
+#: view:dns.backend:connector_dns.dns_backend_form
+#: field:dns.backend,name:0
+#: field:dns.record.type,name:0
+#: field:dns.record.type.bind,name:0
+#: view:dns.zone:connector_dns.dns_zone_form
+#: field:dns.zone,name:0
+#: field:dns.zone.bind,name:0
+msgid "Name"
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.record.type,name:0
+#: help:dns.record.type.bind,name:0
+msgid "Name of DNS record type, such a \"A\" or \"CNAME\"."
+msgstr ""
+
+#. module: connector_dns
+#: code:addons/connector_dns/tests/test_dns_exporter.py:399
+#: code:addons/connector_dns/tests/test_dns_exporter.py:448
+#: code:addons/connector_dns/unit/export_synchronizer.py:355
+#: code:addons/connector_dns/unit/export_synchronizer.py:360
+#, python-format
+msgid "Nothing to export."
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,password:0
+msgid "Password"
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.backend,login:0
+msgid "Provider's login."
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.backend,password:0
+msgid "Provider's password."
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record,type_help:0
+#: field:dns.record.bind,type_help:0
+msgid "Record Help"
+msgstr ""
+
+#. module: connector_dns
+#: view:dns.record:connector_dns.dns_record_form
+msgid "Record Name"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record,type_id:0
+#: field:dns.record.bind,type_id:0
+msgid "Record Type"
+msgstr ""
+
+#. module: connector_dns
+#: code:addons/connector_dns/unit/export_synchronizer.py:362
+#, python-format
+msgid "Record exported with ID %s on DNS."
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.ui.menu,name:connector_dns.menu_dns_record
+msgid "Records"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,version:0
+msgid "Service Provider"
+msgstr ""
+
+#. module: connector_dns
+#: view:dns.backend:connector_dns.dns_backend_form
+msgid "Set to draft"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record,name:0
+#: field:dns.record.bind,name:0
+msgid "Sub domain"
+msgstr ""
+
+#. module: connector_dns
+#: view:dns.zone:connector_dns.dns_zone_form
+msgid "Subdomains"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record.type,supported_backend_ids:0
+#: field:dns.record.type.bind,supported_backend_ids:0
+msgid "Supported Backends"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record,ttl:0
+#: field:dns.record.bind,ttl:0
+msgid "TTL"
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.record,type_help:0
+#: help:dns.record.bind,type_help:0
+#: help:dns.record.type,help:0
+#: help:dns.record.type.bind,help:0
+msgid "Text that will be displayed to user as a formatting guide for this record type."
+msgstr ""
+
+#. module: connector_dns
+#: code:addons/connector_dns/models/dns_backend.py:75
+#, python-format
+msgid "This company already has a default CarePoint connector."
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.record.type,validate_regex:0
+#: help:dns.record.type.bind,validate_regex:0
+msgid "This is a regex that is used for validation of the record value. Leave blank for no validation."
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.record,ttl:0
+#: help:dns.record.bind,ttl:0
+msgid "Time to Live, in seconds. Scope: 1-604800"
+msgstr ""
+
+#. module: connector_dns
+#: help:dns.backend,uri:0
+msgid "URI to Provider endpoint."
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.backend,uri:0
+msgid "Uri"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record.type,validate_regex:0
+#: field:dns.record.type.bind,validate_regex:0
+msgid "Validate regex"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record,value:0
+#: field:dns.record.bind,value:0
+msgid "Value"
+msgstr ""
+
+#. module: connector_dns
+#: field:dns.record,zone_id:0
+#: field:dns.record.bind,zone_id:0
+msgid "Zone"
+msgstr ""
+
+#. module: connector_dns
+#: model:ir.ui.menu,name:connector_dns.menu_dns_zone
+msgid "Zones"
+msgstr ""
+
