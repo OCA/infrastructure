@@ -1,7 +1,7 @@
 # © 2015-2019 Elico Corp (https://www.elico-corp.com).
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 from odoo import api, fields, models
-from odoo.addons.queue_job.job import job, related_action
+from odoo.addons.queue_job.job import job
 
 
 class DNSBingingAbstract(models.AbstractModel):

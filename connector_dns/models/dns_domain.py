@@ -1,6 +1,6 @@
 # © 2015-2019 Elico Corp (https://www.elico-corp.com).
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class DNSDomain(models.Model):
@@ -27,6 +27,6 @@ class DNSDomain(models.Model):
     )
 
     _sql_constraints = [
-        ('dns_domain_uniq', 'unique(backend_id, external_id)',
-         "A binding already exists with the same record."),
+        ('dns_domain_uniq', 'unique(external_id)',
+         "An external_id already exists with the same record."),
     ]
