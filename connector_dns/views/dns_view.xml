@@ -84,7 +84,7 @@ License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
     <menuitem id="menu_dns_backend_act"
               name="Backend"
-              action="dns.action_dns_backend"
+              action="connector_dns.action_dns_backend"
               parent="menu_dns_backend"
     />
 

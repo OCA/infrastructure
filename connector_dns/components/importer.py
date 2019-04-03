@@ -25,7 +25,7 @@ class DNSAbstractImporter(AbstractComponent):
         return
 
     def _get_records(self):
-        return self.backend_adapter.list(self.external_id)
+        return self.backend_adapter.search(self.external_id)
 
     def _validate_data(self, data):
         return
@@ -56,7 +56,7 @@ class DNSAbstractImporter(AbstractComponent):
 
     def run(self, domain_id):
         self.domain_id = domain_id
-        for _id in self.backend_adapter.list_all(domain_id):
+        for _id in self.backend_adapter.search_all(domain_id):
             self._run(_id)
 
     def _run(self, external_id):

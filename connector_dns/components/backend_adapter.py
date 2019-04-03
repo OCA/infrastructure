@@ -8,10 +8,10 @@ class DNSAbstractAdapter(AbstractComponent):
     _inherit = ['base.backend.adapter', 'base.dns.connector']
     _usage = 'backend.adapter'
 
-    def list_all(self, domain_id):
+    def search_all(self, domain_id):
         raise NotImplementedError
 
-    def list(self, external_id):
+    def search(self, external_id):
         raise NotImplementedError
 
     def create(self):
