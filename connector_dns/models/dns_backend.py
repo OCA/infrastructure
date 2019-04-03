@@ -8,15 +8,9 @@ class DNSBackend(models.Model):
     _inherit = 'connector.backend'
     _description = 'DNS Connector Backend'
 
-    @api.model
-    def _selection_version(self):
-        return [('1.0', '1.0')]
-
     name = fields.Char('Name', required=True)
     company_id = fields.Many2one(
         'res.company',
         default=lambda self: self.env.user.company_id,
         string='Company')
     is_default = fields.Boolean('Is Default Backend')
-    import_date = fields.Datetime('Import Date')
-    export_date = fields.Datetime('Export Date')

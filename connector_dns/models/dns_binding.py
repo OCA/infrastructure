@@ -43,5 +43,5 @@ class DNSBingingAbstract(models.AbstractModel):
     @api.model
     def delete_dns_records(self, backend_id, binding):
         with backend_id.work_on(self._name) as work:
-            exporter = work.component(usage='dns.deleter')
-            return exporter.run(binding)
+            deleter = work.component(usage='dns.deleter')
+            return deleter.run(binding)

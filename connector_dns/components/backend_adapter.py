@@ -20,5 +20,5 @@ class DNSAbstractAdapter(AbstractComponent):
     def write(self, external_id):
         raise NotImplementedError
 
-    def unlink(self, external_id):
+    def delete(self, external_id):
         raise NotImplementedError
