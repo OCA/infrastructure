@@ -1,6 +1,6 @@
 # © 2015-2019 Elico Corp (https://www.elico-corp.com).
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
-from odoo import models, fields, api
+from odoo import models, fields
 
 
 class DNSBackend(models.Model):
