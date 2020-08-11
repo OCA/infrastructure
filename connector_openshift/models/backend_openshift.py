@@ -9,31 +9,11 @@ class BackendOpenshift(models.Model):
     _name = "backend.openshift"
     _description = "Openshift Backend"
 
-    name = fields.Char(
-        'Name',
-        required=True,
-    )
-    api_url = fields.Char(
-        'API URL',
-        required=True,
-    )
-    token = fields.Char(
-        'Token',
-        required=True,
-    )
-    apps_domain = fields.Char(
-        'Apps Domain',
-        required=True,
-    )
-    create_project = fields.Text(
-        'Create Project'
-    )
-    suspend_project = fields.Text(
-        'Suspend Project'
-    )
-    resume_project = fields.Text(
-        'Resume Project'
-    )
-    close_project = fields.Text(
-        'Close Project'
-    )
+    name = fields.Char("Name", required=True,)
+    api_url = fields.Char("API URL", required=True,)
+    token = fields.Char("Token", required=True,)
+    apps_domain = fields.Char("Apps Domain", required=True,)
+    create_project = fields.Text("Create Project")
+    suspend_project = fields.Text("Suspend Project")
+    resume_project = fields.Text("Resume Project")
+    close_project = fields.Text("Close Project")

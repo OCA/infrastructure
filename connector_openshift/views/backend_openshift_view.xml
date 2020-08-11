@@ -1,18 +1,16 @@
 <odoo>
-
     <record id="backend_openshift_tree_view" model="ir.ui.view">
         <field name="name">backend.openshift.tree</field>
         <field name="model">backend.openshift</field>
         <field name="arch" type="xml">
             <tree string="Openshift Backend">
-                <field name="name"/>
-                <field name="api_url"/>
-                <field name="token"/>
-                <field name="apps_domain"/>
+                <field name="name" />
+                <field name="api_url" />
+                <field name="token" />
+                <field name="apps_domain" />
             </tree>
         </field>
     </record>
-
     <record id="backend_openshift_form_view" model="ir.ui.view">
         <field name="name">backend.openshift.form</field>
         <field name="model">backend.openshift</field>
@@ -21,59 +19,58 @@
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name"/>
+                            <field name="name" />
                         </h1>
                     </div>
                     <group>
-                        <field name="api_url"/>
-                        <field name="token"/>
-                        <field name="apps_domain"/>
+                        <field name="api_url" />
+                        <field name="token" />
+                        <field name="apps_domain" />
                     </group>
                     <notebook>
                         <page string="Create Project">
-                            <field name="create_project"/>
+                            <field name="create_project" />
                         </page>
                         <page string="Suspend Project">
-                            <field name="suspend_project"/>
+                            <field name="suspend_project" />
                         </page>
                         <page string="Resume Project">
-                            <field name="resume_project"/>
+                            <field name="resume_project" />
                         </page>
                         <page string="Close Project">
-                            <field name="close_project"/>
+                            <field name="close_project" />
                         </page>
                     </notebook>
                 </sheet>
             </form>
         </field>
     </record>
-
     <record id="backend_openshift_search_view" model="ir.ui.view">
         <field name="name">backend.openshift.search</field>
         <field name="model">backend.openshift</field>
         <field name="arch" type="xml">
             <search string="Openshift Backend Search">
-                <field name="name"/>
+                <field name="name" />
             </search>
         </field>
     </record>
-
     <record id="backend_openshift_action" model="ir.actions.act_window">
         <field name="name">Openshift Backend</field>
         <field name="res_model">backend.openshift</field>
         <field name="type">ir.actions.act_window</field>
         <field name="view_mode">tree,form</field>
     </record>
-
-    <menuitem id="menu_backend"
-              name="Backends"
-              sequence="20"
-              parent="connector.menu_connector_root"/>
-
-    <menuitem id="menu_backend_openshift"
-              name="Openshift Backend"
-              parent="menu_backend"
-              sequence="10"
-              action="backend_openshift_action"/>
-
+    <menuitem
+        id="menu_backend"
+        name="Backends"
+        sequence="20"
+        parent="connector.menu_connector_root"
+    />
+    <menuitem
+        id="menu_backend_openshift"
+        name="Openshift Backend"
+        parent="menu_backend"
+        sequence="10"
+        action="backend_openshift_action"
+    />
 </odoo>
