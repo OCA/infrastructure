@@ -1,26 +1,19 @@
-# -*- coding: utf-8 -*-
 # Copyright 2013 Camptocamp SA
 # Copyright 2015 LasLabs Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging
-
 from contextlib import contextmanager
 
 import psycopg2
-
-from openerp.tools.translate import _
-
+from openerp.addons.connector.exception import IDMissingInBackend, RetryableJobError
 from openerp.addons.connector.queue.job import job, related_action
 from openerp.addons.connector.related_action import unwrap_binding
 from openerp.addons.connector.unit.synchronizer import Exporter
-from openerp.addons.connector.exception import (IDMissingInBackend,
-                                                RetryableJobError,
-                                                )
+from openerp.tools.translate import _
 
-from .import_synchronizer import import_record
 from ..connector import get_environment
-
+from .import_synchronizer import import_record
 
 _logger = logging.getLogger(__name__)
 
@@ -36,7 +29,7 @@ In addition to its export job, an exporter has to:
 
 
 class DNSBaseExporter(Exporter):
-    """ Base exporter for DNS """
+    """Base exporter for DNS"""
 
     def __init__(self, connector_env):
         """
@@ -49,19 +42,23 @@ class DNSBaseExporter(Exporter):
         self.binding_record = None
 
     def _delay_import(self):
-        """ Schedule an import of the record.
+        """Schedule an import of the record.
         Adapt in the sub-classes when the model is not imported
         using ``import_record``.
         """
         # force is True because the sync_date will be more recent
         # so the import would be skipped
         assert self.dns_id
-        import_record.delay(self.session, self.model._name,
-                            self.backend_record.id, self.dns_id,
-                            force=True)
+        import_record.delay(
+            self.session,
+            self.model._name,
+            self.backend_record.id,
+            self.dns_id,
+            force=True,
+        )
 
     def _should_import(self):
-        """ Compare the update date in DNS with the last sync datew in Odoo.
+        """Compare the update date in DNS with the last sync datew in Odoo.
         If the former is more recent, schedule an import in order to not
         overwrite changes on remote system.
 
@@ -79,11 +76,11 @@ class DNSBaseExporter(Exporter):
             return True
 
     def _get_odoo_data(self):
-        """ Return the raw Odoo data for ``self.binding_id`` """
+        """Return the raw Odoo data for ``self.binding_id``"""
         return self.model.browse(self.binding_id)
 
     def run(self, binding_id, *args, **kwargs):
-        """ Run the synchronization
+        """Run the synchronization
         :param binding_id: identifier of the binding record to export
         """
 
@@ -92,7 +89,9 @@ class DNSBaseExporter(Exporter):
 
         binder = self.binder_for(self.model._name)
         self.dns_id = getattr(
-            self.binding_record, binder._external_field, False,
+            self.binding_record,
+            binder._external_field,
+            False,
         )
 
         try:
@@ -117,19 +116,19 @@ class DNSBaseExporter(Exporter):
         return result
 
     def _run(self):
-        """ Flow of the synchronization, implemented in inherited classes"""
+        """Flow of the synchronization, implemented in inherited classes"""
         raise NotImplementedError
 
     def _after_export(self):
-        """ Can do several actions after exporting a record on dns """
+        """Can do several actions after exporting a record on dns"""
         return
 
 
 class DNSExporter(DNSBaseExporter):
-    """ A common flow for the exports to DNS """
+    """A common flow for the exports to DNS"""
 
     def _lock(self):
-        """ Lock the binding record.
+        """Lock the binding record.
         Lock the binding record so we are sure that only one export
         job is running for this record if concurrent jobs have to export the
         same record.
@@ -140,27 +139,29 @@ class DNSExporter(DNSBaseExporter):
         with :meth:`_export_dependencies`. Each level will set its own lock
         on the binding record it has to export.
         """
-        sql = ("SELECT id FROM %s WHERE ID = %%s FOR UPDATE NOWAIT" %
-               self.model._table)
+        sql = "SELECT id FROM %s WHERE ID = %%s FOR UPDATE NOWAIT" % self.model._table
         try:
-            self.session.cr.execute(sql, (self.binding_id, ),
-                                    log_exceptions=False)
+            self.session.cr.execute(sql, (self.binding_id,), log_exceptions=False)
         except psycopg2.OperationalError:
-            _logger.info('A concurrent job is already exporting the same '
-                         'record (%s with id %s). Job delayed later.',
-                         self.model._name, self.binding_id)
+            _logger.info(
+                "A concurrent job is already exporting the same "
+                "record (%s with id %s). Job delayed later.",
+                self.model._name,
+                self.binding_id,
+            )
             raise RetryableJobError(
-                'A concurrent job is already exporting the same record '
-                '(%s with id %s). The job will be retried later.' %
-                (self.model._name, self.binding_id))
+                "A concurrent job is already exporting the same record "
+                "(%s with id %s). The job will be retried later."
+                % (self.model._name, self.binding_id)
+            )
 
     def _has_to_skip(self):
-        """ Return True if the export can be skipped """
+        """Return True if the export can be skipped"""
         return False
 
     @contextmanager
     def _retry_unique_violation(self):
-        """ Context manager: catch Unique constraint error and retry the
+        """Context manager: catch Unique constraint error and retry the
         job later.
         When we execute several jobs workers concurrently, it happens
         that 2 jobs are creating the same record at the same time (binding
@@ -178,18 +179,23 @@ class DNSExporter(DNSBaseExporter):
         except psycopg2.IntegrityError as err:
             if err.pgcode == psycopg2.errorcodes.UNIQUE_VIOLATION:
                 raise RetryableJobError(
-                    'A database error caused the failure of the job:\n'
-                    '%s\n\n'
-                    'Likely due to 2 concurrent jobs wanting to create '
-                    'the same record. The job will be retried later.' % err)
+                    "A database error caused the failure of the job:\n"
+                    "%s\n\n"
+                    "Likely due to 2 concurrent jobs wanting to create "
+                    "the same record. The job will be retried later." % err
+                )
             else:
                 raise
 
-    def _export_dependency(self, relation, binding_model, exporter_class=None,
-                           binding_field='dns_bind_ids',
-                           binding_extra_vals=None,
-                           force=False,
-                           ):
+    def _export_dependency(
+        self,
+        relation,
+        binding_model,
+        exporter_class=None,
+        binding_field="dns_bind_ids",
+        binding_extra_vals=None,
+        force=False,
+    ):
         """ Export a dependency. The exporter class is a subclass of
         ``DNSExporter``. If a more precise class need to be defined,
         it can be passed to the ``exporter_class`` keyword argument.
@@ -237,14 +243,14 @@ class DNSExporter(DNSBaseExporter):
 
         if wrap and hasattr(relation, binding_field):
             domain = [
-                (rel_binder._openerp_field, '=', relation.id),
-                (rel_binder._backend_field, '=', self.backend_record.id),
+                (rel_binder._openerp_field, "=", relation.id),
+                (rel_binder._backend_field, "=", self.backend_record.id),
             ]
             binding = self.env[binding_model].search(domain)
             if binding:
                 assert len(binding) == 1, (
-                    'only 1 binding for a backend is '
-                    'supported in _export_dependency')
+                    "only 1 binding for a backend is " "supported in _export_dependency"
+                )
             # we are working with a unwrapped record (e.g.
             # product.category) and the binding does not exist yet.
             # Example: I created a product.product and its binding
@@ -262,10 +268,12 @@ class DNSExporter(DNSBaseExporter):
                 # one later. A unique constraint (backend_id,
                 # odoo_id) should exist on the binding model
                 with self._retry_unique_violation():
-                    binding = (self.env[binding_model]
-                               .with_context(connector_no_export=True)
-                               .sudo()
-                               .create(bind_values))
+                    binding = (
+                        self.env[binding_model]
+                        .with_context(connector_no_export=True)
+                        .sudo()
+                        .create(bind_values)
+                    )
                     # Eager commit to avoid having 2 jobs
                     # exporting at the same time. The constraint
                     # will pop if an other job already created
@@ -283,17 +291,17 @@ class DNSExporter(DNSBaseExporter):
             exporter.run(binding.id)
 
     def _export_dependencies(self):
-        """ Export the dependencies for the record"""
+        """Export the dependencies for the record"""
         return
 
     def _map_data(self):
-        """ Returns an instance of
+        """Returns an instance of
         :py:class:`~odoo.addons.connector.unit.mapper.MapRecord`
         """
         return self.mapper.map_record(self.binding_record)
 
     def _validate_create_data(self, data):
-        """ Check if the values to import are correct
+        """Check if the values to import are correct
         Pro-actively check before the ``Model.create`` if some fields
         are missing or invalid
         Raise `InvalidDataError`
@@ -301,7 +309,7 @@ class DNSExporter(DNSBaseExporter):
         return
 
     def _validate_update_data(self, data):
-        """ Check if the values to import are correct
+        """Check if the values to import are correct
         Pro-actively check before the ``Model.update`` if some fields
         are missing or invalid
         Raise `InvalidDataError`
@@ -309,28 +317,28 @@ class DNSExporter(DNSBaseExporter):
         return
 
     def _create_data(self, map_record, fields=None, **kwargs):
-        """ Get the data to pass to :py:meth:`_create` """
+        """Get the data to pass to :py:meth:`_create`"""
         return map_record.values(for_create=True, fields=fields, **kwargs)
 
     def _create(self, data):
-        """ Create the DNS record """
+        """Create the DNS record"""
         # special check on data before export
         self._validate_create_data(data)
         return self.backend_adapter.create(data)
 
     def _update_data(self, map_record, fields=None, **kwargs):
-        """ Get the data to pass to :py:meth:`_update` """
+        """Get the data to pass to :py:meth:`_update`"""
         return map_record.values(fields=fields, **kwargs)
 
     def _update(self, data):
-        """ Update an DNS record """
+        """Update an DNS record"""
         assert self.dns_id
         # special check on data before export
         self._validate_update_data(data)
         self.backend_adapter.write(self.dns_id, data)
 
     def _run(self, fields=None):
-        """ Flow of the base synchronization """
+        """Flow of the base synchronization"""
         assert self.binding_id
         assert self.binding_record
 
@@ -352,22 +360,20 @@ class DNSExporter(DNSBaseExporter):
         if self.dns_id:
             record = self._update_data(map_record, fields=fields)
             if not record:
-                return _('Nothing to export.')
+                return _("Nothing to export.")
             self._update(record)
         else:
             record = self._create_data(map_record, fields=fields)
             if not record:
-                return _('Nothing to export.')
+                return _("Nothing to export.")
             self.dns_id = self._create(record)
-        return _(
-            'Record exported with ID %s on DNS.'
-        ) % self.dns_id
+        return _("Record exported with ID %s on DNS.") % self.dns_id
 
 
-@job(default_channel='root.dns')
+@job(default_channel="root.dns")
 @related_action(action=unwrap_binding)
 def export_record(session, model_name, binding_id, fields=None):
-    """ Export a record to DNS """
+    """Export a record to DNS"""
     record = session.env[model_name].browse(binding_id)
     env = get_environment(session, model_name, record.backend_id.id)
     exporter = env.get_connector_unit(DNSExporter)

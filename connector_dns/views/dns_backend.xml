@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <openerp>
     <data>
-        
+
         <record id="dns_backend_action" model="ir.actions.act_window">
             <field name="name">DNS Backends</field>
             <field name="res_model">dns.backend</field>
@@ -25,14 +25,12 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <button name="button_connect"
-                                string="Connect"
-                                type="object"
-                                />
-                        <button name="button_set_draft"
-                                string="Set to draft"
-                                type="object"
-                                />
+                        <button name="button_connect" string="Connect" type="object" />
+                        <button
+                            name="button_set_draft"
+                            string="Set to draft"
+                            type="object"
+                        />
                     </header>
                     <sheet>
                         <div class="oe_title" style="width: 390px;">
@@ -56,6 +54,6 @@
                 </form>
             </field>
         </record>
-        
+
     </data>
 </openerp>

@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 # Copyright 2015 Elico Corp
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 import logging
+
 from openerp.addons.connector.unit.backend_adapter import CRUDAdapter
 
 _logger = logging.getLogger(__name__)
@@ -11,15 +11,15 @@ recorder = {}
 
 
 def call_to_key(method, arguments):  # pragma: no cover
-    """ Used to 'freeze' the method and arguments of a call to DNS
+    """Used to 'freeze' the method and arguments of a call to DNS
     so they can be hashable; they will be stored in a dict.
 
     Used in both the recorder and the tests.
     """
+
     def freeze(arg):
         if isinstance(arg, dict):
-            items = dict((key, freeze(value)) for key, value
-                         in arg.iteritems())
+            items = {key: freeze(value) for key, value in arg.iteritems()}
             return frozenset(items.iteritems())
         elif isinstance(arg, list):
             return tuple([freeze(item) for item in arg])
@@ -33,7 +33,7 @@ def call_to_key(method, arguments):  # pragma: no cover
 
 
 def record(method, arguments, result):  # pragma: no cover
-    """ Utility function which can be used to record test data
+    """Utility function which can be used to record test data
     during synchronisations. Call it from DNSAdapter._call
 
     Then ``output_recorder`` can be used to write the data recorded
@@ -44,13 +44,13 @@ def record(method, arguments, result):  # pragma: no cover
 
 def output_recorder(filename):  # pragma: no cover
     import pprint
-    with open(filename, 'w') as f:
+
+    with open(filename, "w") as f:
         pprint.pprint(recorder, f)
-    _logger.debug('Recorder written to file %s', filename)
+    _logger.debug("Recorder written to file %s", filename)
 
 
 class DNSLocation(object):
-
     def __init__(self, uri, login, password):
         self.uri = uri
         self.login = login
@@ -58,7 +58,7 @@ class DNSLocation(object):
 
 
 class DNSAdapter(CRUDAdapter):
-    """ External Records Adapter for DNS """
+    """External Records Adapter for DNS"""
 
     def __init__(self, environment):
         """
@@ -73,16 +73,16 @@ class DNSAdapter(CRUDAdapter):
         )
 
     def search(self, filters=None):
-        """ Search records according to some criterias
-        and returns a list of ids """
+        """Search records according to some criterias
+        and returns a list of ids"""
         raise NotImplementedError
 
     def read(self, id, attributes=None):
-        """ Returns the information of a record """
+        """Returns the information of a record"""
         raise NotImplementedError
 
     def search_read(self, filters=None):
-        """ Search records according to some criterias
+        """Search records according to some criterias
         and returns their information"""
         raise NotImplementedError
 
@@ -90,11 +90,11 @@ class DNSAdapter(CRUDAdapter):
         raise NotImplementedError
 
     def write(self, data):
-        """ Update records on the external system """
+        """Update records on the external system"""
         raise NotImplementedError
 
     def delete(self, data):
-        """ Delete a record on the external system """
+        """Delete a record on the external system"""
         raise NotImplementedError
 
     def _call(self, action, arguments):

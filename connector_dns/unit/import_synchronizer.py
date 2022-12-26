@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2013 Camptocamp SA
 # Copyright 2015 LasLabs Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
@@ -15,13 +14,14 @@ are already bound, to update the last sync date.
 
 
 import logging
-from openerp import fields, _
-from openerp.addons.connector.queue.job import job
-from openerp.addons.connector.connector import ConnectorUnit
-from openerp.addons.connector.unit.synchronizer import Importer
-from ..backend import dns
-from ..connector import get_environment, add_checkpoint
 
+from openerp import _, fields
+from openerp.addons.connector.connector import ConnectorUnit
+from openerp.addons.connector.queue.job import job
+from openerp.addons.connector.unit.synchronizer import Importer
+
+from ..backend import dns
+from ..connector import add_checkpoint, get_environment
 
 _logger = logging.getLogger(__name__)
 
@@ -34,7 +34,7 @@ def int_or_str(val):
 
 
 class DNSImporter(Importer):
-    """ Base importer for DNS """
+    """Base importer for DNS"""
 
     def __init__(self, connector_env):
         """
@@ -46,16 +46,16 @@ class DNSImporter(Importer):
         self.dns_record = None
 
     def _get_dns_data(self):
-        """ Return the raw DNS data for ``self.dns_id`` """
-        _logger.debug('Getting CP data for %s', self.dns_id)
+        """Return the raw DNS data for ``self.dns_id``"""
+        _logger.debug("Getting CP data for %s", self.dns_id)
         return self.backend_adapter.read(self.dns_id)
 
     def _before_import(self):
-        """ Hook called before the import, when we have the DNS
+        """Hook called before the import, when we have the DNS
         data"""
 
     def _is_current(self, binding):
-        """ Return True if the import should be skipped because
+        """Return True if the import should be skipped because
         it is already up to date in Odoo"""
         assert self.dns_record
 
@@ -65,13 +65,17 @@ class DNSImporter(Importer):
         binder = self.binder_for(self.model._name)
 
         dns_date = getattr(
-            binding, binder._external_date_field, False,
+            binding,
+            binder._external_date_field,
+            False,
         )
         if not dns_date:
             return  # No external update date, always import
 
         sync_date = getattr(
-            binding, binder._sync_date_field, False,
+            binding,
+            binder._sync_date_field,
+            False,
         )
         if not sync_date:
             return  # No internal update date, always import
@@ -88,8 +92,9 @@ class DNSImporter(Importer):
         # miss changes done in DNS
         return dns_date < sync_date
 
-    def _import_dependency(self, dns_id, binding_model,
-                           importer_class=None, always=False):
+    def _import_dependency(
+        self, dns_id, binding_model, importer_class=None, always=False
+    ):
         """ Import a dependency.
         The importer class is a class or subclass of
         :class:`DNSImporter`. A specific class can be defined.
@@ -119,20 +124,20 @@ class DNSImporter(Importer):
             importer.run(dns_id)
 
     def _import_dependencies(self):
-        """ Import the dependencies for the record
+        """Import the dependencies for the record
         Import of dependencies can be done manually or by calling
         :meth:`_import_dependency` for each dependency.
         """
         return
 
     def _map_data(self):
-        """ Returns an instance of
+        """Returns an instance of
         :py:class:`~odoo.addons.connector.unit.mapper.MapRecord`
         """
         return self.mapper.map_record(self.dns_record)
 
     def _validate_data(self, data):
-        """ Check if the values to import are correct
+        """Check if the values to import are correct
         Pro-actively check before the ``_create`` or
         ``_update`` if some fields are missing or invalid.
         Raise `InvalidDataError`
@@ -140,7 +145,7 @@ class DNSImporter(Importer):
         return
 
     def _must_skip(self):
-        """ Hook called right after we read the data from the backend.
+        """Hook called right after we read the data from the backend.
         If the method returns a message giving a reason for the
         skipping, the import will be interrupted and the message
         recorded in the job (if the import is called directly by the
@@ -151,16 +156,17 @@ class DNSImporter(Importer):
         return
 
     def _get_binding(self):
-        return self.binder.to_openerp(self.dns_id,
-                                      unwrap=False,
-                                      browse=True,
-                                      )
+        return self.binder.to_openerp(
+            self.dns_id,
+            unwrap=False,
+            browse=True,
+        )
 
     def _create_data(self, map_record, **kwargs):
         return map_record.values(for_create=True, **kwargs)
 
     def _create(self, data):
-        """ Create the Odoo record """
+        """Create the Odoo record"""
         # special check on data before import
         self._validate_data(data)
         model = self.model.with_context(connector_no_export=True)
@@ -171,23 +177,23 @@ class DNSImporter(Importer):
         return map_record.values(**kwargs)
 
     def _update(self, binding, data):
-        """ Update an Odoo record """
+        """Update an Odoo record"""
         # special check on data before import
         self._validate_data(data)
         binding.with_context(connector_no_export=True).write(data)
         return
 
     def _after_import(self, binding):
-        """ Hook called at the end of the import """
+        """Hook called at the end of the import"""
         return
 
     def run(self, dns_id, force=False):
-        """ Run the synchronization
+        """Run the synchronization
         :param dns_id: identifier of the record on DNS
         """
         self.dns_id = dns_id
         self.dns_record = self._get_dns_data()
-        lock_name = 'import({}, {}, {}, {})'.format(
+        lock_name = "import({}, {}, {}, {})".format(
             self.backend_record._name,
             self.backend_record.id,
             self.model._name,
@@ -203,7 +209,7 @@ class DNSImporter(Importer):
         binding = self._get_binding()
 
         if not force and self._is_current(binding):
-            return _('Already Up To Date.')
+            return _("Already Up To Date.")
         self._before_import()
 
         # import the missing linked resources
@@ -224,13 +230,13 @@ class DNSImporter(Importer):
 
 
 class BatchImporter(Importer):
-    """ The role of a BatchImporter is to search for a list of
+    """The role of a BatchImporter is to search for a list of
     items to import, then it can either import them directly or delay
     the import of each item separately.
     """
 
     def run(self, filters=None):
-        """ Run the synchronization """
+        """Run the synchronization"""
         if filters is None:
             filters = {}
         record_ids = self.backend_adapter.search(**filters)
@@ -238,66 +244,72 @@ class BatchImporter(Importer):
             self._import_record(record_id)
 
     def _import_record(self, record_id):
-        """ Import a record directly or delay the import of the record.
+        """Import a record directly or delay the import of the record.
         Method to be implemented in sub-classes.
         """
         raise NotImplementedError
 
 
 class DirectBatchImporter(BatchImporter):
-    """ Import the records directly, without delaying the jobs. """
+    """Import the records directly, without delaying the jobs."""
+
     _model_name = None
 
     def _import_record(self, record_id):
-        """ Import the record directly """
-        import_record(self.session,
-                      self.model._name,
-                      self.backend_record.id,
-                      int_or_str(record_id))
+        """Import the record directly"""
+        import_record(
+            self.session,
+            self.model._name,
+            self.backend_record.id,
+            int_or_str(record_id),
+        )
 
 
 class DelayedBatchImporter(BatchImporter):
-    """ Delay import of the records """
+    """Delay import of the records"""
+
     _model_name = None
 
     def _import_record(self, record_id, **kwargs):
-        """ Delay the import of the records"""
-        import_record.delay(self.session,
-                            self.model._name,
-                            self.backend_record.id,
-                            int_or_str(record_id),
-                            **kwargs)
+        """Delay the import of the records"""
+        import_record.delay(
+            self.session,
+            self.model._name,
+            self.backend_record.id,
+            int_or_str(record_id),
+            **kwargs
+        )
 
 
 @dns
 class AddCheckpoint(ConnectorUnit):
-    """ Add a connector.checkpoint on the underlying model
-    (not the dns.* but the _inherits'ed model) """
+    """Add a connector.checkpoint on the underlying model
+    (not the dns.* but the _inherits'ed model)"""
 
-    _model_name = ['dns.product.product',
-                   'dns.product.category',
-                   ]
+    _model_name = [
+        "dns.product.product",
+        "dns.product.category",
+    ]
 
     def run(self, odoo_binding_id):
         binding = self.model.browse(odoo_binding_id)
         record = binding.odoo_id
-        add_checkpoint(self.session,
-                       record._model._name,
-                       record.id,
-                       self.backend_record.id)
+        add_checkpoint(
+            self.session, record._model._name, record.id, self.backend_record.id
+        )
 
 
-@job(default_channel='root.dns')
+@job(default_channel="root.dns")
 def import_batch(session, model_name, backend_id, filters=None):
-    """ Prepare a batch import of records from DNS """
+    """Prepare a batch import of records from DNS"""
     env = get_environment(session, model_name, backend_id)
     importer = env.get_connector_unit(BatchImporter)
     importer.run(filters=filters)
 
 
-@job(default_channel='root.dns')
+@job(default_channel="root.dns")
 def import_record(session, model_name, backend_id, dns_id, force=False):
-    """ Import a record from DNS """
+    """Import a record from DNS"""
     env = get_environment(session, model_name, backend_id)
     importer = env.get_connector_unit(DNSImporter)
     importer.run(dns_id, force=force)

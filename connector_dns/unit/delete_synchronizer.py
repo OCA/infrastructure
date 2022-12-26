@@ -1,22 +1,22 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 LasLabs Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
 # from openerp.addons.connector.queue.job import job
 from openerp.addons.connector.unit.synchronizer import Deleter
+
 # from ..connector import get_environment
 
 
 class DNSDeleter(Deleter):
-    """ Base deleter for DNS """
+    """Base deleter for DNS"""
 
     def run(self, dns_id):
         """
         Run the synchronization, delete the record on DNS
         :param dns_id: identifier of the record to delete
         """
-        raise NotImplementedError('Cannot delete records from DNS.')
+        raise NotImplementedError("Cannot delete records from DNS.")
 
 
 # @job(default_channel='root.dns')

@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <openerp>
     <data>
-        
+
         <record id="dns_zone_action" model="ir.actions.act_window">
             <field name="name">DNS Zones</field>
             <field name="res_model">dns.zone</field>
@@ -25,10 +25,11 @@
             <field name="arch" type="xml">
                 <form string='Domain'>
                     <header>
-                        <button name="button_get_sub_domains"
-                                string="Get Sub domains"
-                                type="object"
-                                />
+                        <button
+                            name="button_get_sub_domains"
+                            string="Get Sub domains"
+                            type="object"
+                        />
                     </header>
                     <sheet>
                         <div class="oe_title" style="width: 390px;">
@@ -37,7 +38,7 @@
                                 <field name="name" class="oe_inline" />
                             </h1>
                         </div>
-                        <label for="record_ids" string='Subdomains'/>
+                        <label for="record_ids" string='Subdomains' />
                         <field name="record_ids">
                             <tree editable="bottom">
                                 <field name="name" />
@@ -51,6 +52,6 @@
                 </form>
             </field>
         </record>
-        
+
     </data>
 </openerp>
