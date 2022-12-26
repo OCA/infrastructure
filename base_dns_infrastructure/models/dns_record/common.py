@@ -8,17 +8,21 @@ from odoo.exceptions import ValidationError
 
 class DNSRecord(models.Model):
     _name = "dns.record"
+    _rec_name = "complete_name"
+    _order = "complete_name"
     _description = "DNS Record"
 
-    name = fields.Char(
-        string="Sub domain",
-        help='Host record, such as "www".',
-        required=True,
+    complete_name = fields.Char(
+        string="Complete Name",
+        compute="_compute_complete_name",
+        recursive=True,
+        store=True,
     )
+    active = fields.Boolean(string="Actif", default=True)
     zone_id = fields.Many2one(
-        string="Zone",
+        string="Domain",
         comodel_name="dns.domain_zone",
-        ondelete="cascade",
+        ondelete="restrict",
         required=True,
         help="Hosted zone that this record is applied to.",
     )
@@ -32,17 +36,27 @@ class DNSRecord(models.Model):
         related="type_id.help",
     )
     value = fields.Char(
-        string="Value",
+        string="DNS Record Value",
         help="Enter multiple values on separate lines. Enclose text in "
         "quotation marks.",
         required=True,
     )
     ttl = fields.Integer(
-        string="TTL",
-        default=600,
+        default=60,
         help="Time to Live, in seconds. Scope: 1-604800",
         required=True,
     )
+
+    @api.depends(
+        "zone_id.complete_name",
+        "type_id.code",
+    )
+    def _compute_complete_name(self):
+        for record in self:
+            record.complete_name = "%s [%s]" % (
+                record.zone_id.complete_name,
+                record.type_id.code,
+            )
 
     @api.constrains("type_id", "value")
     def _check_value(self):
@@ -56,6 +70,6 @@ class DNSRecord(models.Model):
                 flags=re.MULTILINE | re.IGNORECASE,
             ):
                 raise ValidationError(
-                    _('"%s" does not match validation rule for a "%s" record')
-                    % (rec_id.value, rec_id.type_id.display_name)
+                    _('"%s" does not match validation rule for a "%s" record'),
+                    (rec_id.value, rec_id.type_id.display_name),
                 )

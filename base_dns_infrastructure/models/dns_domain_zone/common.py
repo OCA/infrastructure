@@ -1,6 +1,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import validators
+from validator_collection import checkers
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
@@ -8,7 +8,7 @@ from odoo.exceptions import ValidationError
 
 class DNSDomainZone(models.Model):
     _name = "dns.domain_zone"
-    _inherit = ["mail.thread"]
+    _inherit = ["mail.thread", "mail.activity.mixin"]
     _parent_store = True
     _rec_name = "complete_name"
     _order = "complete_name"
@@ -22,7 +22,7 @@ class DNSDomainZone(models.Model):
         In case of a sub domain, the first key of the sub domain
         """,
     )
-
+    active = fields.Boolean(string="Actif", default=True)
     state = fields.Selection(
         [
             ("draft", "Draft"),
@@ -30,13 +30,15 @@ class DNSDomainZone(models.Model):
             ("exception", "Exception"),
             ("inactive", "Inactive"),
         ],
-        string="State",
         default="draft",
         help="Done when succeed otherwise Exception",
+        tracking=True,
     )
 
-    owner_partner_id = fields.Many2one(comodel_name="res.partner")
-    renew_date = fields.Date(string="Renewal Date")
+    owner_partner_id = fields.Many2one(
+        string="Owner",
+        comodel_name="res.partner")
+    renew_date = fields.Date(string="Renewal Date", tracking=True)
 
     record_ids = fields.One2many(
         string="DNS Records",
@@ -45,21 +47,26 @@ class DNSDomainZone(models.Model):
     )
 
     parent_id = fields.Many2one(
-        comodel_name="dns.domain_zone", string="Parent", index=True, ondelete="restrict"
+        comodel_name="dns.domain_zone",
+        string="Parent Domain",
+        index=True,
+        ondelete="restrict",
+        tracking=True,
     )
-    parent_path = fields.Char("Parent Path", index=True, unaccent=False)
+    parent_path = fields.Char(string="Parent Path", index=True, unaccent=False)
 
     complete_name = fields.Char(
-        "Complete Name", compute="_compute_complete_name", recursive=True, store=True
+        string="Domain Complete Name",
+        compute="_compute_complete_name",
+        recursive=True,
+        store=True,
     )
 
     @api.constrains("complete_name")
     def _check_valid_domain_name(self):
         for record in self:
-            valid = validators.domain(
+            valid = checkers.is_domain(
                 record.complete_name,
-                allow_empty=False,
-                allow_ips=False,
             )
             if not valid:
                 raise ValidationError(
