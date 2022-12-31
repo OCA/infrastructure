@@ -10,7 +10,7 @@
         <field name="name">DNS Zone Tree</field>
         <field name="model">dns.domain_zone</field>
         <field name="arch" type="xml">
-            <tree>
+            <tree decoration-info="state == 'draft'">
                 <field name="complete_name" />
                 <field name="owner_partner_id" />
                 <field name="renew_date" />

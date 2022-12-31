@@ -35,9 +35,7 @@ class DNSDomainZone(models.Model):
         tracking=True,
     )
 
-    owner_partner_id = fields.Many2one(
-        string="Owner",
-        comodel_name="res.partner")
+    owner_partner_id = fields.Many2one(string="Owner", comodel_name="res.partner")
     renew_date = fields.Date(string="Renewal Date", tracking=True)
 
     record_ids = fields.One2many(
@@ -53,7 +51,7 @@ class DNSDomainZone(models.Model):
         ondelete="restrict",
         tracking=True,
     )
-    parent_path = fields.Char(string="Parent Path", index=True, unaccent=False)
+    parent_path = fields.Char(index=True, unaccent=False)
 
     complete_name = fields.Char(
         string="Domain Complete Name",
