@@ -16,6 +16,7 @@
     "license": "AGPL-3",
     "website": "https://github.com/OCA/infrastructure",
     "data": [
+        "data/dns_record_type.xml",
         "views/dns_record_type.xml",
         "views/dns_record.xml",
         "views/dns_domain_zone.xml",

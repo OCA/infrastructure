@@ -13,7 +13,7 @@ class DNSRecord(models.Model):
     _description = "DNS Record"
 
     complete_name = fields.Char(
-        string="Complete Name",
+        string="DNS Record Name",
         compute="_compute_complete_name",
         recursive=True,
         store=True,
@@ -70,6 +70,8 @@ class DNSRecord(models.Model):
                 flags=re.MULTILINE | re.IGNORECASE,
             ):
                 raise ValidationError(
-                    _('"%s" does not match validation rule for a "%s" record'),
-                    (rec_id.value, rec_id.type_id.display_name),
+                    _(
+                        '"%s" does not match validation rule for a "%s" record',
+                        (rec_id.value, rec_id.type_id.display_name),
+                    ),
                 )
