@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
+    <record model="ir.module.category" id="module_category_infrastructure_dns">
+        <field name="name">Infrastructure et DNS</field>
+        <field name="sequence">60</field>
+        <field name="visible" eval="0" />
+    </record>
+
 
     <record id="type_a" model="dns.record.type">
         <field name="name">IPv4 Address</field>
@@ -10,8 +16,9 @@
             192.0.2.235
             198.51.100.234
         </field>
-        <field name="validate_regex">
-            ^((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\n?)+$</field>
+        <field
+            name="validate_regex"
+        ><![CDATA[^((?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\n?)+$]]></field>
     </record>
 
     <record id="type_aaaa" model="dns.record.type">
@@ -23,7 +30,9 @@
             2001:0db8:85a3:0:0:8a2e:0370:7334
             fe80:0:0:0:202:b3ff:fe1e:8329
         </field>
-        <field name="validate_regex">^((?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}\n?)+$</field>
+        <field
+            name="validate_regex"
+        ><![CDATA[^((?:[A-F0-9]{1,4}:){7}[A-F0-9]{1,4}\n?)+$]]></field>
     </record>
 
     <record id="type_cname" model="dns.record.type">
@@ -35,7 +44,9 @@
             Example:
             www.example.com
         </field>
-        <field name="validate_regex">^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$</field>
+        <field
+            name="validate_regex"
+        ><![CDATA[^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$]]></field>
     </record>
 
     <record id="type_mx" model="dns.record.type">
@@ -52,7 +63,7 @@
         </field>
         <field
             name="validate_regex"
-        >^([12]?\d ([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\n)+$</field>
+        ><![CDATA[^([12]?\d ([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\n)+$]]></field>
     </record>
 
     <record id="type_txt" model="dns.record.type">
@@ -65,7 +76,7 @@
             "Sample Text Entries"
             "Enclose entries in quotation marks"
         </field>
-        <field name="validate_regex">^(".*"\n)+$</field>
+        <field name="validate_regex"><![CDATA[^(".*"\n)+$]]></field>
     </record>
 
     <record id="type_ptr" model="dns.record.type">
@@ -75,7 +86,9 @@
             Example:
             www.example.com
         </field>
-        <field name="validate_regex">^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$</field>
+        <field
+            name="validate_regex"
+        ><![CDATA[^([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}$]]></field>
     </record>
 
     <record id="type_srv" model="dns.record.type">
@@ -93,7 +106,7 @@
         </field>
         <field
             name="validate_regex"
-        >^(\d+ \d+ \d+ ([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\n)+$</field>
+        ><![CDATA[^(\d+ \d+ \d+ ([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\n)+$]]></field>
     </record>
 
     <record id="type_spf" model="dns.record.type">
@@ -107,7 +120,7 @@
             Example:
             "v=spf1 ip4:192.168.0.1/16-all"
         </field>
-        <field name="validate_regex">.*</field>
+        <field name="validate_regex"><![CDATA[.*]]></field>
     </record>
 
     <record id="type_naptr" model="dns.record.type">
@@ -123,7 +136,7 @@
             100 100 "U" "" "!^.*$!sip:info@bar.example.com!" .
             10 100 "S" "SIP+D2U" "" foo.example.com.
         </field>
-        <field name="validate_regex">.*</field>
+        <field name="validate_regex"><![CDATA[.*]]></field>
     </record>
 
     <record id="type_ns" model="dns.record.type">
@@ -138,7 +151,9 @@
             ns3.amazon.net
             ns4.amazon.co.uk
         </field>
-        <field name="validate_regex">^(([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\n)+$</field>
+        <field
+            name="validate_regex"
+        ><![CDATA[^(([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\n)+$]]></field>
     </record>
 
 </odoo>
