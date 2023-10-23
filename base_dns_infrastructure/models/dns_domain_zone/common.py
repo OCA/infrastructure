@@ -26,7 +26,7 @@ class DNSDomainZone(models.Model):
     state = fields.Selection(
         [
             ("draft", "Draft"),
-            ("active", "Active"),
+            ("production", "Production"),
             ("exception", "Exception"),
             ("inactive", "Inactive"),
         ],
@@ -71,10 +71,7 @@ class DNSDomainZone(models.Model):
                     _('"%s" is not a valid FQDN') % (record.complete_name,)
                 )
 
-    @api.depends(
-        "name",
-        "parent_id.complete_name",
-    )
+    @api.depends("name", "parent_id")
     def _compute_complete_name(self):
         for record in self:
             if record.parent_id:

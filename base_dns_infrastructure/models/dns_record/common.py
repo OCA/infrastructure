@@ -45,6 +45,7 @@ class DNSRecord(models.Model):
         default=60,
         help="Time to Live, in seconds. Scope: 1-604800",
         required=True,
+        string="TTL",
     )
 
     @api.depends(
@@ -53,9 +54,10 @@ class DNSRecord(models.Model):
     )
     def _compute_complete_name(self):
         for record in self:
-            record.complete_name = "%s [%s]" % (
+            record.complete_name = "%s [%s]: %s" % (
                 record.zone_id.complete_name,
                 record.type_id.code,
+                record.value,
             )
 
     @api.constrains("type_id", "value")
