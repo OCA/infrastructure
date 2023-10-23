@@ -42,14 +42,23 @@
                         bg_color="bg-danger"
                         attrs="{'invisible': [('active', '=', True)]}"
                     />
-                    <div class="oe_title" style="width: 390px;">
+                    <div class="oe_title">
                         <label class="oe_edit_only" for="name" string="Name" />
                         <h1>
                             <field name="name" class="oe_inline" />
+                            <field
+                                name="parent_id"
+                                class="oe_inline"
+                                placeholder="Parent domain"
+                            />
                         </h1>
                     </div>
                     <group>
-                        <field name="parent_id" />
+                        <group string="Commercial Informations">
+                            <field name="owner_partner_id" />
+                            <field name="renew_date" />
+                        </group>
+
                     </group>
 
                     <notebook>
@@ -62,15 +71,6 @@
                                     <field name="ttl" />
                                 </tree>
                             </field>
-                        </page>
-                        <page string="Commercial Informations">
-                            <group>
-                                <group>
-                                    <field name="owner_partner_id" />
-                                    <field name="renew_date" />
-                                </group>
-
-                            </group>
                         </page>
                     </notebook>
                 </sheet>

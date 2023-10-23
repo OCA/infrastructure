@@ -4,7 +4,7 @@
         name="Infrastructure DNS"
         id="menu_base_infrastructure_dns"
         web_icon="base_dns_infrastructure,static/src/img/network.png"
-        sequence="160"
+        sequence="100"
     >
         <menuitem name="Zones And Records" id="menu_dns_and_type" sequence="50">
             <menuitem
@@ -24,7 +24,7 @@
             <menuitem
                 name="DNS Record Type"
                 id="menu_dns_record_type"
-                sequence="100"
+                sequence="200"
                 action="dns_record_type_action"
             />
         </menuitem>
