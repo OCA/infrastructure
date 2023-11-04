@@ -20,7 +20,6 @@ globals:
   jQuery: readonly
   moment: readonly
   odoo: readonly
-  openerp: readonly
   owl: readonly
 
 # Styling is handled by Prettier, so we only need to enable AST rules;
