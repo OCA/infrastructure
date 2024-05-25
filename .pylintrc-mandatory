@@ -40,11 +40,7 @@ enable=anomalous-backslash-in-string,
     method-inverse,
     method-required-super,
     method-search,
-<<<<<<< HEAD
-    openerp-exception-warning,
-=======
     odoo-exception-warning,
->>>>>>> b05c167... [FIX]Pylint
     pointless-statement,
     pointless-string-statement,
     print-used,
