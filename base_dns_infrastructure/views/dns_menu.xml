@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem
+        name="Infrastructure DNS"
+        id="menu_base_infrastructure_dns"
+        web_icon="base_dns_infrastructure,static/src/img/network.png"
+        sequence="100"
+    >
+        <menuitem name="Zones And Records" id="menu_dns_and_type" sequence="50">
+            <menuitem
+                name="Domain Zone"
+                id="menu_dns_domain_zone"
+                sequence="50"
+                action="dns_zone_action"
+            />
+            <menuitem
+                name="Domain Records"
+                id="menu_dns_records"
+                sequence="60"
+                action="dns_record_action"
+            />
+        </menuitem>
+        <menuitem name="Configuration" id="menu_dns_configuration" sequence="100">
+            <menuitem
+                name="DNS Record Type"
+                id="menu_dns_record_type"
+                sequence="200"
+                action="dns_record_type_action"
+            />
+        </menuitem>
+    </menuitem>
+</odoo>
