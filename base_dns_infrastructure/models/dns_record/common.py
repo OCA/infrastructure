@@ -72,7 +72,9 @@ class DNSRecord(models.Model):
                 flags=re.MULTILINE | re.IGNORECASE,
             ):
                 raise ValidationError(
-                    _(  "%s does not match validation rule for a %s record" % 
-                        ( rec_id.value, rec_id.type_id.display_name, ),
-                    ),
+                    _(
+                        "%(value)s does not match validation rule for a %(type)s record",
+                        value=rec_id.value,
+                        type=rec_id.type_id.display_name,
+                    )
                 )

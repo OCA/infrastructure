@@ -24,8 +24,6 @@
         "security/dns.xml",
         "security/ir.model.access.csv",
     ],
-    "demo": [
-        "demo/base_dns_infrastructure.xml"
-        ],
+    "demo": ["demo/base_dns_infrastructure.xml"],
     "installable": True,
 }
