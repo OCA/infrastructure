@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<odoo noupdate="1">
+
+    <record id="oca_partner" model="res.partner">
+        <field name="name">Odoo Community</field>
+        <field name="ref">OCA</field>
+    </record>
+
+    <record id="oca_domain_zone" model="dns.domain_zone">
+        <field name="name">odoo-community.org</field>
+        <field name="owner_partner_id" ref="oca_partner" />
+    </record>
+
+    <record id="runboat_oca_domain_zone" model="dns.domain_zone">
+        <field name="name">runboat</field>
+        <field name="owner_partner_id" ref="oca_partner" />
+        <field name="parent_id" ref="oca_domain_zone" />
+    </record>
+
+    <record id="oca_dns_ipA" model="dns.record">
+        <field name="zone_id" ref="oca_domain_zone" />
+        <field name="type_id" ref="type_a" />
+        <field name="value">85.10.204.136</field>
+    </record>
+
+
+
+dns.record
+
+</odoo>

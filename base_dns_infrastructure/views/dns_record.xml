@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="dns_record_action" model="ir.actions.act_window">
+        <field name="name">DNS Records</field>
+        <field name="res_model">dns.record</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="dns_record_tree" model="ir.ui.view">
+        <field name="name">DNS Record Tree</field>
+        <field name="model">dns.record</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="zone_id" />
+                <field name="type_id" />
+                <field name="value" />
+                <field name="ttl" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="dns_record_form" model="ir.ui.view">
+        <field name="name">DNS Record Form</field>
+        <field name="model">dns.record</field>
+        <field name="arch" type="xml">
+            <form>
+                <header />
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="complete_name" class="oe_inline" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Parameters">
+                            <field name="zone_id" />
+                            <field name="type_id" />
+                        </group>
+                        <group string="Values">
+
+                            <field name="ttl" />
+                            <field name="value" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="dns_record_search" model="ir.ui.view">
+        <field name="name">DNS Record Search</field>
+        <field name="model">dns.record</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="zone_id" />
+                <field name="type_id" />
+                <searchpanel>
+                    <field
+                        name="zone_id"
+                        string="Domain"
+                        icon="fa-server"
+                        enable_counters="1"
+                        select="one"
+                    />
+                    <field
+                        name="type_id"
+                        string="Types"
+                        icon="fa-building"
+                        enable_counters="1"
+                        select="multi"
+                    />
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+</odoo>

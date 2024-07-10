@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="dns_zone_action" model="ir.actions.act_window">
+        <field name="name">DNS Domain Zones</field>
+        <field name="res_model">dns.domain_zone</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="dns_zone_tree" model="ir.ui.view">
+        <field name="name">DNS Zone Tree</field>
+        <field name="model">dns.domain_zone</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state == 'draft'">
+                <field name="complete_name" />
+                <field name="owner_partner_id" />
+                <field name="renew_date" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="dns_zone_form" model="ir.ui.view">
+        <field name="name">DNS Zone Form</field>
+        <field name="model">dns.domain_zone</field>
+        <field name="arch" type="xml">
+            <form string="Domain Zone">
+                <header>
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        class="o_field_statusbar"
+                        options="{'clickable': '1', 'fold_field': 'fold'}"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                    </div>
+                    <field name="active" invisible="1" />
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Name" />
+                        <h1>
+                            <field name="name" class="oe_inline" />
+                            <field
+                                name="parent_id"
+                                class="oe_inline"
+                                placeholder="Parent domain"
+                            />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Commercial Informations">
+                            <field name="owner_partner_id" />
+                            <field name="renew_date" />
+                        </group>
+
+                    </group>
+
+                    <notebook>
+                        <page string="DNS Records">
+                            <field name="record_ids">
+                                <tree>
+                                    <field name="zone_id" />
+                                    <field name="type_id" />
+                                    <field name="value" />
+                                    <field name="ttl" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="activity_ids" />
+                    <field
+                        name="message_ids"
+                        options="{'post_refresh': 'recipients'}"
+                    />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="dns_zone_search" model="ir.ui.view">
+        <field name="name">DNS Zone Search</field>
+        <field name="model">dns.domain_zone</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="complete_name" />
+                <field name="owner_partner_id" />
+                <field name="renew_date" />
+                <field name="state" />
+
+                <searchpanel>
+                    <field
+                        name="parent_id"
+                        string="Domain"
+                        icon="fa-server"
+                        enable_counters="1"
+                        select="one"
+                    />
+                    <field name="state" />
+                    <field
+                        name="owner_partner_id"
+                        string="Customers"
+                        icon="fa-building"
+                        enable_counters="1"
+                        select="multi"
+                    />
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+</odoo>
