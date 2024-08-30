@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-07-31 16:58+0000\n"
+"PO-Revision-Date: 2024-08-30 10:06+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -309,7 +309,7 @@ msgstr "In produzione mentre attivo altrimenti eccezione"
 #. module: base_dns_infrastructure
 #: model:ir.model.fields.selection,name:base_dns_infrastructure.selection__dns_domain_zone__state__inactive
 msgid "Inactive"
-msgstr "Inattiva"
+msgstr "Inattivo"
 
 #. module: base_dns_infrastructure
 #: model:ir.ui.menu,name:base_dns_infrastructure.menu_base_infrastructure_dns
