@@ -51,7 +51,7 @@ class DNSDomainZone(models.Model):
         ondelete="restrict",
         tracking=True,
     )
-    parent_path = fields.Char(index=True, unaccent=False)
+    parent_path = fields.Char(index=True)
 
     complete_name = fields.Char(
         string="Complete Domain Name",

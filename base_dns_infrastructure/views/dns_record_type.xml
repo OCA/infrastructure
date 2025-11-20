@@ -3,16 +3,16 @@
     <record id="dns_record_type_action" model="ir.actions.act_window">
         <field name="name">DNS Record Type</field>
         <field name="res_model">dns.record.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="dns_record_type_tree" model="ir.ui.view">
         <field name="name">DNS Record Type Tree</field>
         <field name="model">dns.record.type</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="complete_name" />
-            </tree>
+            </list>
         </field>
     </record>
 

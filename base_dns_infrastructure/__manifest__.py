@@ -2,7 +2,7 @@
 
 {
     "name": "Base module for DNS infrastructure",
-    "version": "16.0.1.0.1",
+    "version": "18.0.1.0.0",
     "category": "Services",
     "application": True,
     "external_dependencies": {
