@@ -37,7 +37,6 @@
                             <field name="type_id" />
                         </group>
                         <group string="Values">
-
                             <field name="ttl" />
                             <field name="value" />
                         </group>
@@ -46,7 +45,6 @@
             </form>
         </field>
     </record>
-
 
     <record id="dns_record_search" model="ir.ui.view">
         <field name="name">DNS Record Search</field>

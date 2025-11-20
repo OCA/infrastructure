@@ -33,8 +33,7 @@
                     />
                 </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                    </div>
+                    <div class="oe_button_box" name="button_box" />
                     <field name="active" invisible="1" />
                     <widget
                         name="web_ribbon"
@@ -58,7 +57,6 @@
                             <field name="owner_partner_id" />
                             <field name="renew_date" />
                         </group>
-
                     </group>
 
                     <notebook>
@@ -116,5 +114,4 @@
             </search>
         </field>
     </record>
-
 </odoo>

@@ -6,7 +6,6 @@
         <field name="visible" eval="0" />
     </record>
 
-
     <record id="type_a" model="dns.record.type">
         <field name="name">IPv4 Address</field>
         <field name="code">A</field>
@@ -155,5 +154,4 @@
             name="validate_regex"
         ><![CDATA[^(([a-z0-9]+(-[a-z0-9]+)*\.)+[a-z]{2,}\n)+$]]></field>
     </record>
-
 </odoo>
