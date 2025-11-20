@@ -54,7 +54,8 @@ class DNSRecord(models.Model):
     )
     def _compute_complete_name(self):
         for record in self:
-            record.complete_name = f"{record.zone_id.complete_name} [{record.type_id.code}]: {record.value}"
+            record.complete_name = f"{record.zone_id.complete_name} \
+                [{record.type_id.code}]: {record.value}"
 
     @api.constrains("type_id", "value")
     def _check_value(self):
@@ -69,7 +70,8 @@ class DNSRecord(models.Model):
             ):
                 raise ValidationError(
                     _(
-                        "%(value)s does not match validation rule for a %(type)s record",
+                        "%(value)s does not match "
+                        "validation rule for a %(type)s record",
                         value=rec_id.value,
                         type=rec_id.type_id.display_name,
                     )

@@ -38,8 +38,8 @@
                     <widget
                         name="web_ribbon"
                         title="Archived"
-                        bg_color="bg-danger"
-                        attrs="{'invisible': [('active', '=', True)]}"
+                        bg_color="text-bg-danger"
+                        invisible="active"
                     />
                     <div class="oe_title">
                         <label class="oe_edit_only" for="name" string="Name" />
