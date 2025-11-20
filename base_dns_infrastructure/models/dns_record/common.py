@@ -54,11 +54,7 @@ class DNSRecord(models.Model):
     )
     def _compute_complete_name(self):
         for record in self:
-            record.complete_name = "%s [%s]: %s" % (
-                record.zone_id.complete_name,
-                record.type_id.code,
-                record.value,
-            )
+            record.complete_name = f"{record.zone_id.complete_name} [{record.type_id.code}]: {record.value}"
 
     @api.constrains("type_id", "value")
     def _check_value(self):

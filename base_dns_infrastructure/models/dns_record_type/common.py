@@ -38,7 +38,4 @@ class DNSRecordType(models.Model):
     @api.depends("name", "code")
     def _compute_complete_name(self):
         for record_type in self:
-            record_type.complete_name = "[%s]%s" % (
-                record_type.code,
-                record_type.name,
-            )
+            record_type.complete_name = f"[{record_type.code}]{record_type.name}"

@@ -75,9 +75,6 @@ class DNSDomainZone(models.Model):
     def _compute_complete_name(self):
         for record in self:
             if record.parent_id:
-                record.complete_name = "%s.%s" % (
-                    record.name,
-                    record.parent_id.complete_name,
-                )
+                record.complete_name = f"{record.name}.{record.parent_id.complete_name}"
             else:
                 record.complete_name = record.name
