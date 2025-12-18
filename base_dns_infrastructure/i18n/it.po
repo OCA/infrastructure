@@ -1,0 +1,536 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* base_dns_infrastructure
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2024-08-30 10:06+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.6.2\n"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__name
+msgid ""
+"\n"
+"        In case of a domain FQDN Hosted domain zone name, such as amazon.com\n"
+"        In case of a sub domain, the first key of the sub domain\n"
+"        "
+msgstr ""
+"\n"
+"        Nel caso di dominio FQDN nome zona dominio ospitato, come amazon."
+"com\n"
+"        Nel caso di un sotto dominio, la prima chiave del sotto dominio\n"
+"        "
+
+#. module: base_dns_infrastructure
+#. odoo-python
+#: code:addons/base_dns_infrastructure/models/dns_domain_zone/common.py:0
+#, python-format
+msgid "\"%s\" is not a valid FQDN"
+msgstr "\"%s\" non è un FQDN valido"
+
+#. module: base_dns_infrastructure
+#. odoo-python
+#: code:addons/base_dns_infrastructure/models/dns_record/common.py:0
+#, python-format
+msgid "%(value)s does not match validation rule for a %(type)s record"
+msgstr ""
+"%(value)s non corrisponde alla regola di validazione per un record %(type)s"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_needaction
+msgid "Action Needed"
+msgstr "Azione richiesta"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__active
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__active
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__active
+msgid "Active"
+msgstr "Attivo"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__activity_ids
+msgid "Activities"
+msgstr "Attività"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Decorazione eccezione attività"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__activity_state
+msgid "Activity State"
+msgstr "Stato attività"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__activity_type_icon
+msgid "Activity Type Icon"
+msgstr "Icona tipo attività"
+
+#. module: base_dns_infrastructure
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_zone_form
+msgid "Archived"
+msgstr "In archivio"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_attachment_count
+msgid "Attachment Count"
+msgstr "Conteggio allegati"
+
+#. module: base_dns_infrastructure
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_zone_form
+msgid "Commercial Informations"
+msgstr "Informazioni commerciali"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__complete_name
+msgid "Complete Domain Name"
+msgstr "Nome dominio completo"
+
+#. module: base_dns_infrastructure
+#: model:ir.ui.menu,name:base_dns_infrastructure.menu_dns_configuration
+msgid "Configuration"
+msgstr "Configurazione"
+
+#. module: base_dns_infrastructure
+#: model:ir.model,name:base_dns_infrastructure.model_res_partner
+msgid "Contact"
+msgstr "Contatto"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__create_uid
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__create_uid
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__create_uid
+msgid "Created by"
+msgstr "Creato da"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__create_date
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__create_date
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__create_date
+msgid "Created on"
+msgstr "Creato il"
+
+#. module: base_dns_infrastructure
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_zone_search
+msgid "Customers"
+msgstr "Clienti"
+
+#. module: base_dns_infrastructure
+#: model:ir.model,name:base_dns_infrastructure.model_dns_domain_zone
+msgid "DNS Domain Zone"
+msgstr "Zona dominio DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.actions.act_window,name:base_dns_infrastructure.dns_zone_action
+msgid "DNS Domain Zones"
+msgstr "Zone dominio DNS"
+
+#. module: base_dns_infrastructure
+#: model:res.groups,name:base_dns_infrastructure.group_dns_manager
+msgid "DNS Manager"
+msgstr "Responsabile DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.model,name:base_dns_infrastructure.model_dns_record
+msgid "DNS Record"
+msgstr "Record DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__complete_name
+msgid "DNS Record Name"
+msgstr "Nome record DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.actions.act_window,name:base_dns_infrastructure.dns_record_type_action
+#: model:ir.model,name:base_dns_infrastructure.model_dns_record_type
+#: model:ir.ui.menu,name:base_dns_infrastructure.menu_dns_record_type
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_record_type_form
+msgid "DNS Record Type"
+msgstr "Tipo record DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__complete_name
+msgid "DNS Record Type Complete Name"
+msgstr "Nome completo tipo record DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__value
+msgid "DNS Record Value"
+msgstr "Valore record DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.actions.act_window,name:base_dns_infrastructure.dns_record_action
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__record_ids
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_zone_form
+msgid "DNS Records"
+msgstr "Record DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__code
+msgid "DNS Type Code"
+msgstr "Codice tipo DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__name
+msgid "DNS Type Name"
+msgstr "Nome tipo DNS"
+
+#. module: base_dns_infrastructure
+#: model:res.groups,name:base_dns_infrastructure.group_dns_user
+msgid "DNS User"
+msgstr "Utente DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__display_name
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__display_name
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__zone_id
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_record_search
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_zone_search
+msgid "Domain"
+msgstr "Dominio"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__name
+msgid "Domain Name"
+msgstr "Nome dominio"
+
+#. module: base_dns_infrastructure
+#: model:ir.ui.menu,name:base_dns_infrastructure.menu_dns_records
+msgid "Domain Records"
+msgstr "Record dominio"
+
+#. module: base_dns_infrastructure
+#: model:ir.ui.menu,name:base_dns_infrastructure.menu_dns_domain_zone
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_zone_form
+msgid "Domain Zone"
+msgstr "Zona dominio"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_res_partner__domain_zone_ids
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_res_users__domain_zone_ids
+msgid "Domain Zones"
+msgstr "Zone dominio"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_record__zone_id
+msgid "Domain that this record is applied to."
+msgstr "Dominio a cui si applica questo record."
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields.selection,name:base_dns_infrastructure.selection__dns_domain_zone__state__draft
+msgid "Draft"
+msgstr "Bozza"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_record__value
+msgid ""
+"Enter multiple values on separate lines. Enclose text in quotation marks."
+msgstr ""
+"Inserire valori multipli in righe separate. Inserire il testo tra apici."
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields.selection,name:base_dns_infrastructure.selection__dns_domain_zone__state__exception
+msgid "Exception"
+msgstr "Eccezione"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_follower_ids
+msgid "Followers"
+msgstr "Seguito da"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Seguito da (partner)"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr "Icona Font Awesome es. fa-tasks"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__has_message
+msgid "Has Message"
+msgstr "Ha un messaggio"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__help
+msgid "Help"
+msgstr "Aiuto"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__id
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__id
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__id
+msgid "ID"
+msgstr "ID"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__activity_exception_icon
+msgid "Icon"
+msgstr "Icona"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Icona per indicare un'attività eccezione."
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr "Se selezionata, nuovi messaggi richiedono attenzione."
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Se selezionata, alcuni messaggi hanno un errore di consegna."
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__state
+msgid "In Production when active otherwise Exception"
+msgstr "In produzione mentre attivo altrimenti eccezione"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields.selection,name:base_dns_infrastructure.selection__dns_domain_zone__state__inactive
+msgid "Inactive"
+msgstr "Inattivo"
+
+#. module: base_dns_infrastructure
+#: model:ir.ui.menu,name:base_dns_infrastructure.menu_base_infrastructure_dns
+msgid "Infrastructure DNS"
+msgstr "Infrastruttura DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.module.category,name:base_dns_infrastructure.module_category_infrastructure_dns
+msgid "Infrastructure and DNS"
+msgstr "Infrastruttura e DNS"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_is_follower
+msgid "Is Follower"
+msgstr "Segue"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone____last_update
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record____last_update
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__write_uid
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__write_uid
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__write_uid
+msgid "Last Updated by"
+msgstr "Ultimo aggiornamento di"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__write_date
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__write_date
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__write_date
+msgid "Last Updated on"
+msgstr "Ultimo aggiornamento il"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Allegato principale"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_has_error
+msgid "Message Delivery error"
+msgstr "Errore di consegna messaggio"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_ids
+msgid "Messages"
+msgstr "Messaggi"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr "Scadenza mia attività"
+
+#. module: base_dns_infrastructure
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_record_type_form
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_zone_form
+msgid "Name"
+msgstr "Nome"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_record_type__name
+msgid "Name of DNS record type, such a \"A\" or \"CNAME\"."
+msgstr "Nome del tipo record DNS, come un \"A\" o \"CNAME\"."
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Scadenza prossima attività"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__activity_summary
+msgid "Next Activity Summary"
+msgstr "Riepilogo prossima attività"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__activity_type_id
+msgid "Next Activity Type"
+msgstr "Tipo prossima attività"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Numero di azioni"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_has_error_counter
+msgid "Number of errors"
+msgstr "Numero di errori"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr "Numero di messaggi che richiedono un'azione"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Numero di messaggi con errore di consegna"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__owner_partner_id
+msgid "Owner"
+msgstr "Proprietario"
+
+#. module: base_dns_infrastructure
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_record_form
+msgid "Parameters"
+msgstr "Parametri"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__parent_id
+msgid "Parent Domain"
+msgstr "Dominio padre"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__parent_path
+msgid "Parent Path"
+msgstr "Percorso padre"
+
+#. module: base_dns_infrastructure
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_zone_form
+msgid "Parent domain"
+msgstr "Dominio padre"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields.selection,name:base_dns_infrastructure.selection__dns_domain_zone__state__production
+msgid "Production"
+msgstr "Produzione"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__type_help
+msgid "Record Help"
+msgstr "Aiuto record"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__type_id
+msgid "Record Type"
+msgstr "Tipo di record"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__renew_date
+msgid "Renewal Date"
+msgstr "Data rinnovo"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__activity_user_id
+msgid "Responsible User"
+msgstr "Utente responsabile"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__state
+msgid "State"
+msgstr "Stato"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Stato in base alle attività\n"
+"Scaduto: la data richiesta è trascorsa\n"
+"Oggi: la data attività è oggi\n"
+"Pianificato: attività future."
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__ttl
+msgid "TTL"
+msgstr "TTL"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_record__type_help
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_record_type__help
+msgid ""
+"Text that will be displayed to user as a formatting guide for this record "
+"type."
+msgstr ""
+"Testo che verrà mostrato all'utente come guida formattazione per questo tipo "
+"di record."
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_record_type__validate_regex
+msgid ""
+"This is a regex that is used for validation of the record value. Leave blank"
+" for no validation."
+msgstr ""
+"Questa è una espressione regolare utilizzata per la validazione del valore "
+"del record. Lasciare buoto per non valutare."
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_record__ttl
+msgid "Time to Live, in seconds. Scope: 1-604800"
+msgstr "Tempo di vita, in secondi. Intervallo 1-604800"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,help:base_dns_infrastructure.field_dns_domain_zone__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Tipo di attività eccezione sul record."
+
+#. module: base_dns_infrastructure
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_record_search
+msgid "Types"
+msgstr "Tipi"
+
+#. module: base_dns_infrastructure
+#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__validate_regex
+msgid "Validate Regex"
+msgstr "Valida espressione regolare"
+
+#. module: base_dns_infrastructure
+#: model_terms:ir.ui.view,arch_db:base_dns_infrastructure.dns_record_form
+msgid "Values"
+msgstr "Valori"
+
+#. module: base_dns_infrastructure
+#: model:ir.ui.menu,name:base_dns_infrastructure.menu_dns_and_type
+msgid "Zones And Records"
+msgstr "Zona e record"
