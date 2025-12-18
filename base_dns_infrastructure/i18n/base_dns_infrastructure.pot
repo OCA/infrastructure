@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -25,14 +25,12 @@ msgstr ""
 #. module: base_dns_infrastructure
 #. odoo-python
 #: code:addons/base_dns_infrastructure/models/dns_domain_zone/common.py:0
-#, python-format
 msgid "\"%s\" is not a valid FQDN"
 msgstr ""
 
 #. module: base_dns_infrastructure
 #. odoo-python
 #: code:addons/base_dns_infrastructure/models/dns_record/common.py:0
-#, python-format
 msgid "%(value)s does not match validation rule for a %(type)s record"
 msgstr ""
 
@@ -317,13 +315,6 @@ msgid "Is Follower"
 msgstr ""
 
 #. module: base_dns_infrastructure
-#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone____last_update
-#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record____last_update
-#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: base_dns_infrastructure
 #: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__write_uid
 #: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__write_uid
 #: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__write_uid
@@ -335,11 +326,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record__write_date
 #: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_record_type__write_date
 msgid "Last Updated on"
-msgstr ""
-
-#. module: base_dns_infrastructure
-#: model:ir.model.fields,field_description:base_dns_infrastructure.field_dns_domain_zone__message_main_attachment_id
-msgid "Main Attachment"
 msgstr ""
 
 #. module: base_dns_infrastructure
