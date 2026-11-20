@@ -31,16 +31,31 @@
                             <field name="complete_name" class="oe_inline" />
                         </h1>
                     </div>
-                    <group>
-                        <group string="Parameters">
-                            <field name="zone_id" />
-                            <field name="type_id" />
-                        </group>
-                        <group string="Values">
-                            <field name="ttl" />
-                            <field name="value" />
-                        </group>
-                    </group>
+
+                    <notebook>
+                        <page name="dns_informations" string="Technical Informations">
+                            <group>
+                                <group string="Parameters">
+                                    <field name="zone_id" />
+                                    <field name="type_id" />
+                                </group>
+                                <group string="Values">
+                                    <field name="ttl" />
+                                    <field name="value" />
+                                </group>
+                            </group>
+                        </page>
+
+                        <page
+                            name="sales_informations"
+                            string="Commercial Informations"
+                        >
+                            <group>
+                                <field name="owner_partner_id" />
+                                <field name="other_partner_id" />
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
