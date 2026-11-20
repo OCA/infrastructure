@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="server_contract" model="ir.ui.view">
+        <field name="name">DNS infos in contract</field>
+        <field name="model">contract.contract</field>
+        <field name="inherit_id" ref="contract.contract_contract_form_view" />
+        <field name="arch" type="xml">
+
+            <div name="button_box" position="inside">
+                <button
+                    name="%(base_dns_infrastructure.dns_zone_action)d"
+                    type="action"
+                    groups="base.group_no_one"
+                    class="oe_stat_button"
+                    icon="fa-globe"
+                >
+                    <field
+                        string="DNS Domain Zone"
+                        name="domain_zone_count"
+                        widget="statinfo"
+                    />
+                </button>
+                <button
+                    name="%(base_dns_infrastructure.dns_record_action)d"
+                    type="action"
+                    groups="base.group_no_one"
+                    class="oe_stat_button"
+                    icon="fa-list"
+                >
+                    <field
+                        string="DNS Records"
+                        name="dns_record_count"
+                        widget="statinfo"
+                    />
+                </button>
+
+            </div>
+        </field>
+    </record>
+</odoo>
