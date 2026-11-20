@@ -18,10 +18,9 @@ class ContractContract(models.Model):
         inverse_name="contract_id",
     )
 
+    domain_zone_count = fields.Integer(compute="_compute_dns_stats")
+    dns_record_count = fields.Integer(compute="_compute_dns_stats")
 
-    domain_zone_count = fields.Integer(compute="_compute_dns_stats") 
-    dns_record_count = fields.Integer(compute="_compute_dns_stats") 
-    
     def _compute_dns_stats(self):
         for con in self:
             con.domain_zone_count = len(con.domain_zone_ids)

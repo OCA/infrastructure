@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
-
     <record id="dns_record_contract_form" model="ir.ui.view">
         <field name="name">DNS Record Contract Form</field>
         <field name="model">dns.record</field>
-        <field name="inherit_id" ref="base_dns_infrastructure.dns_record_form"></field>
+        <field name="inherit_id" ref="base_dns_infrastructure.dns_record_form" />
         <field name="arch" type="xml">
             <field name="owner_partner_id" position="after">
                 <field name="contract_id" />
@@ -15,23 +14,33 @@
     <record id="dns_record_contract_search" model="ir.ui.view">
         <field name="name">DNS Record Search</field>
         <field name="model">dns.record</field>
-        <field name="inherit_id" ref="base_dns_infrastructure.dns_record_search"></field>
+        <field name="inherit_id" ref="base_dns_infrastructure.dns_record_search" />
         <field name="arch" type="xml">
             <field name="type_id" position="after">
                 <field name="contract_id" />
 
                 <separator>
-                    <filter name="w_contract" string="With Contract"
-                        domain="[('contract_id', '!=', False)]" />
-                    <filter name="wo_contract" string="Without Contract"
-                        domain="[('contract_id', '=', False)]" />
+                    <filter
+                        name="w_contract"
+                        string="With Contract"
+                        domain="[('contract_id', '!=', False)]"
+                    />
+                    <filter
+                        name="wo_contract"
+                        string="Without Contract"
+                        domain="[('contract_id', '=', False)]"
+                    />
                 </separator>
             </field>
         </field>
     </record>
 
-    <record id="base_dns_infrastructure.dns_record_action" model="ir.actions.act_window">
-        <field name="context">{'search_default_contract_id': context.get('active_id')}</field>
+    <record
+        id="base_dns_infrastructure.dns_record_action"
+        model="ir.actions.act_window"
+    >
+        <field
+            name="context"
+        >{'search_default_contract_id': context.get('active_id')}</field>
     </record>
-
 </odoo>

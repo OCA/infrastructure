@@ -9,8 +9,7 @@
         "python": ["validator-collection"],
     },
     "depends": ["base_dns_infrastructure", "contract"],
-    "author": "Mind And Go, "
-    "Odoo Community Association (OCA)",
+    "author": "Mind And Go, " "Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "website": "https://github.com/OCA/infrastructure",
     "data": [
