@@ -19,6 +19,14 @@ class DNSRecord(models.Model):
         store=True,
     )
     active = fields.Boolean(default=True)
+
+    owner_partner_id = fields.Many2one(
+        string="Partner who own the record", comodel_name="res.partner"
+    )
+    other_partner_id = fields.Many2one(
+        string="End user of the domain record", comodel_name="res.partner"
+    )
+
     zone_id = fields.Many2one(
         string="Domain",
         comodel_name="dns.domain_zone",
@@ -26,6 +34,7 @@ class DNSRecord(models.Model):
         required=True,
         help="Domain that this record is applied to.",
     )
+
     type_id = fields.Many2one(
         string="Record Type",
         comodel_name="dns.record.type",

@@ -35,8 +35,27 @@ class DNSDomainZone(models.Model):
         tracking=True,
     )
 
-    owner_partner_id = fields.Many2one(string="Owner", comodel_name="res.partner")
+    owner_partner_id = fields.Many2one(
+        string="Partner to be invoiced", comodel_name="res.partner"
+    )
+    other_partner_id = fields.Many2one(
+        string="End user of the domain.", comodel_name="res.partner"
+    )
+
     renew_date = fields.Date(string="Renewal Date", tracking=True)
+
+    registrar_administrator_partner_id = fields.Many2one(
+        string="Administrator of the domain from the registrar ",
+        comodel_name="res.partner",
+    )
+    registrar_invoice_partner_id = fields.Many2one(
+        string="Partner Invoiced for this Domain from the registrar",
+        comodel_name="res.partner",
+    )
+    registrar_technical_partner_id = fields.Many2one(
+        string="Technical partner for this Domain from the registrar",
+        comodel_name="res.partner",
+    )
 
     record_ids = fields.One2many(
         string="DNS Records",
